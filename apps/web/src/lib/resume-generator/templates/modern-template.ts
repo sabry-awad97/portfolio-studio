@@ -55,6 +55,17 @@ export class ModernTemplate implements Template {
     }
 
     return new Document({
+      creator: data.personalInfo.name,
+      title: `${data.personalInfo.name} - Resume`,
+      description: `Professional resume for ${data.personalInfo.name} - ${data.personalInfo.title}`,
+      keywords: [
+        data.personalInfo.name,
+        data.personalInfo.title,
+        data.personalInfo.subtitle,
+        "resume",
+        "cv",
+        "curriculum vitae",
+      ].join(", "),
       sections: [
         {
           properties: {

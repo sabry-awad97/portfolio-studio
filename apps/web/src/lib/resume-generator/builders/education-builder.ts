@@ -27,6 +27,7 @@ export function buildEducation(
           before: config.spacing.sm,
           after: config.spacing.xs,
         },
+        keepNext: true, // Keep title with description
         children: [
           new TextRun({
             text: edu.title,

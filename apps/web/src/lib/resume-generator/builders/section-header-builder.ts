@@ -1,4 +1,4 @@
-import { Paragraph, TextRun, HeadingLevel, BorderStyle } from "docx";
+import { Paragraph, TextRun, BorderStyle } from "docx";
 import type { ResumeConfig } from "../configuration/config-types";
 
 /**
@@ -24,6 +24,8 @@ export function buildSectionHeader(
         size: 20,
       },
     },
+    keepNext: true, // Keep section header with next paragraph
+    keepLines: true, // Prevent section header from splitting across pages
     children: [
       new TextRun({
         text: title,

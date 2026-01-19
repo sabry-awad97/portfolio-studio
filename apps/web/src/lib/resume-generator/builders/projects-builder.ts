@@ -27,6 +27,7 @@ export function buildProjects(
           before: config.spacing.sm,
           after: config.spacing.xs,
         },
+        keepNext: true, // Keep title with description
         children: [
           new TextRun({
             text: project.title,
@@ -50,6 +51,7 @@ export function buildProjects(
     paragraphs.push(
       new Paragraph({
         spacing: { after: config.spacing.xs },
+        keepNext: project.tags && project.tags.length > 0, // Keep with technologies if present
         children: [
           new TextRun({
             text: project.description,
