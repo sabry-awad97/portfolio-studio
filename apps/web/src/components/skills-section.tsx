@@ -1,70 +1,122 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { skills } from "@/lib/data";
-import { Code2, Wrench, Layers } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+  cardVariants,
+  paddingVariants,
+  typographyVariants,
+} from "@/lib/responsive-classes";
 
 export function SkillsSection() {
   return (
-    <Card id="skills" className="rounded-3xl min-h-[800px]">
-      <CardHeader className="p-10 pb-4">
-        <CardTitle className="text-2xl font-bold text-black">Skills</CardTitle>
-        <p className="text-sm text-black">
+    <Card
+      id="skills"
+      className={cn(cardVariants({ size: "md" }), "rounded-3xl")}
+      aria-labelledby="skills-title"
+    >
+      <CardHeader className={cn(paddingVariants({ size: "lg" }))}>
+        <CardTitle
+          id="skills-title"
+          className={cn(typographyVariants({ variant: "h2" }), "text-black")}
+        >
+          Skills
+        </CardTitle>
+        <p
+          className={cn(typographyVariants({ variant: "small" }), "text-black")}
+        >
           My skills, which I constantly keep improving.
         </p>
       </CardHeader>
-      <CardContent className="p-10 pt-5 space-y-8">
-        <div className="space-y-4">
-          <h3 className="text-lg font-bold text-black">
+      <CardContent
+        className={cn(paddingVariants({ size: "lg" }), "pt-0 space-y-4")}
+      >
+        <section aria-labelledby="languages-heading">
+          <h3
+            id="languages-heading"
+            className={cn(typographyVariants({ variant: "h4" }), "text-black")}
+          >
             Programming Languages
           </h3>
-          <div className="w-full h-px bg-gray-300 my-3" />
-          <div className="flex flex-wrap gap-2">
+          <div
+            className="w-full h-px bg-gray-300 my-3"
+            role="separator"
+            aria-hidden="true"
+          />
+          <div className="flex flex-wrap gap-2" role="list">
             {skills.languages.map((skill) => (
               <Badge
                 key={skill.name}
                 variant="secondary"
-                className="px-4 py-2 text-sm bg-primary/10 text-primary hover:bg-primary/20"
+                className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm bg-primary/10 text-primary hover:bg-primary/20"
+                role="listitem"
               >
-                <span className="mr-2">{skill.icon}</span>
+                <span className="mr-2" aria-hidden="true">
+                  {skill.icon}
+                </span>
                 {skill.name}
               </Badge>
             ))}
           </div>
-        </div>
+        </section>
 
-        <div className="space-y-4">
-          <h3 className="text-lg font-bold text-black">Frameworks</h3>
-          <div className="w-full h-px bg-gray-300 my-3" />
-          <div className="flex flex-wrap gap-2">
+        <section aria-labelledby="frameworks-heading">
+          <h3
+            id="frameworks-heading"
+            className={cn(typographyVariants({ variant: "h4" }), "text-black")}
+          >
+            Frameworks
+          </h3>
+          <div
+            className="w-full h-px bg-gray-300 my-3"
+            role="separator"
+            aria-hidden="true"
+          />
+          <div className="flex flex-wrap gap-2" role="list">
             {skills.frameworks.map((skill) => (
               <Badge
                 key={skill.name}
                 variant="secondary"
-                className="px-4 py-2 text-sm bg-primary/10 text-primary hover:bg-primary/20"
+                className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm bg-primary/10 text-primary hover:bg-primary/20"
+                role="listitem"
               >
-                <span className="mr-2">{skill.icon}</span>
+                <span className="mr-2" aria-hidden="true">
+                  {skill.icon}
+                </span>
                 {skill.name}
               </Badge>
             ))}
           </div>
-        </div>
+        </section>
 
-        <div className="space-y-4">
-          <h3 className="text-lg font-bold text-black">Other Tools</h3>
-          <div className="w-full h-px bg-gray-300 my-3" />
-          <div className="flex flex-wrap gap-2">
+        <section aria-labelledby="tools-heading">
+          <h3
+            id="tools-heading"
+            className={cn(typographyVariants({ variant: "h4" }), "text-black")}
+          >
+            Other Tools
+          </h3>
+          <div
+            className="w-full h-px bg-gray-300 my-3"
+            role="separator"
+            aria-hidden="true"
+          />
+          <div className="flex flex-wrap gap-2" role="list">
             {skills.tools.map((skill) => (
               <Badge
                 key={skill.name}
                 variant="secondary"
-                className="px-4 py-2 text-sm bg-primary/10 text-primary hover:bg-primary/20"
+                className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm bg-primary/10 text-primary hover:bg-primary/20"
+                role="listitem"
               >
-                <span className="mr-2">{skill.icon}</span>
+                <span className="mr-2" aria-hidden="true">
+                  {skill.icon}
+                </span>
                 {skill.name}
               </Badge>
             ))}
           </div>
-        </div>
+        </section>
       </CardContent>
     </Card>
   );

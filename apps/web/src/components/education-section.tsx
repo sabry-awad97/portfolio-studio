@@ -1,6 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { education } from "@/lib/data";
 import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
+import {
+  cardVariants,
+  paddingVariants,
+  typographyVariants,
+} from "@/lib/responsive-classes";
 
 const itemVariants = {
   initial: { opacity: 0, x: -20 },
@@ -9,13 +15,24 @@ const itemVariants = {
 
 export function EducationSection() {
   return (
-    <Card className="rounded-3xl min-h-[800px] overflow-hidden">
-      <CardHeader className="p-10 pb-4">
-        <CardTitle className="text-2xl font-bold text-black">
+    <Card
+      className={cn(cardVariants({ size: "md" }), "rounded-3xl")}
+      aria-labelledby="education-title"
+    >
+      <CardHeader className={cn(paddingVariants({ size: "lg" }), "pb-4")}>
+        <CardTitle
+          id="education-title"
+          className={cn(typographyVariants({ variant: "h2" }), "text-black")}
+        >
           Education
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-10 pt-3 overflow-y-auto max-h-[700px]">
+      <CardContent
+        className={cn(
+          paddingVariants({ size: "lg" }),
+          "pt-3 overflow-y-auto max-h-[500px] md:max-h-[700px]",
+        )}
+      >
         <motion.div
           className="relative"
           initial="initial"
@@ -27,86 +44,166 @@ export function EducationSection() {
             const isEven = index % 2 === 0;
 
             return (
-              <motion.div
+              <motion.article
                 key={item.id}
-                className="flex mb-2.5"
+                className="mb-2.5"
                 variants={itemVariants}
+                aria-label={`${item.title} - ${item.date}`}
               >
+                {/* Mobile view - simplified single column */}
+                <div className="flex md:hidden gap-4">
+                  <div className="relative flex flex-col items-center w-10 shrink-0">
+                    <span
+                      className="absolute left-1/2 h-[calc(100%+10px)] top-0 -translate-x-1/2"
+                      style={{ borderLeft: "1px solid #cbd5e0" }}
+                      aria-hidden="true"
+                    />
+                    <div className="relative p-2.5 z-10" aria-hidden="true">
+                      <div
+                        className="absolute top-0 left-0 bottom-0 right-0 w-full h-full rounded-full"
+                        style={{ backgroundColor: "#002ad2" }}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="flex-1 p-4 rounded-lg"
+                    style={{ backgroundColor: "#edf2f6" }}
+                  >
+                    <time
+                      className="text-xs sm:text-sm font-medium mb-2 block"
+                      style={{ color: "#002ad2" }}
+                      dateTime={item.date}
+                    >
+                      {item.date}
+                    </time>
+                    <h3
+                      className={cn(
+                        typographyVariants({ variant: "h4" }),
+                        "text-black mb-2",
+                      )}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      className={cn(
+                        typographyVariants({ variant: "small" }),
+                        "text-black",
+                      )}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+
                 {/* Desktop view - alternating layout */}
-                {isEven ? (
-                  <>
-                    {/* Empty space */}
-                    <div className="hidden md:block flex-1 p-6" />
+                <div className="hidden md:flex">
+                  {isEven ? (
+                    <>
+                      {/* Empty space */}
+                      <div className="flex-1 p-6" aria-hidden="true" />
 
-                    {/* Timeline with dot */}
-                    <div className="relative flex items-center mr-10 ml-10">
-                      <span
-                        className="absolute left-1/2 h-[calc(100%+10px)] top-0"
-                        style={{ borderLeft: "1px solid #cbd5e0" }}
-                      />
-                      <div className="relative p-2.5">
-                        <div
-                          className="absolute top-0 left-0 bottom-0 right-0 w-full h-full rounded-full"
-                          style={{ backgroundColor: "#002ad2" }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Content card */}
-                    <div
-                      className="flex-1 p-6 rounded-lg relative before:content-[''] before:absolute before:left-[-15px] before:w-0 before:h-0 before:border-15 before:border-transparent before:border-r-[#edf2f6]"
-                      style={{ backgroundColor: "#edf2f6" }}
-                    >
-                      <p
-                        className="text-sm font-medium mb-2"
-                        style={{ color: "#002ad2" }}
+                      {/* Timeline with dot */}
+                      <div
+                        className="relative flex items-center mr-10 ml-10"
+                        aria-hidden="true"
                       >
-                        {item.date}
-                      </p>
-                      <h3 className="text-xl font-bold text-black mb-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-black">{item.description}</p>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    {/* Content card */}
-                    <div
-                      className="flex-1 p-6 rounded-lg relative before:content-[''] before:absolute before:right-[-15px] before:w-0 before:h-0 before:border-15 before:border-transparent before:border-l-[#edf2f6]"
-                      style={{ backgroundColor: "#edf2f6" }}
-                    >
-                      <p
-                        className="text-sm font-medium mb-2"
-                        style={{ color: "#2c5282" }}
-                      >
-                        {item.date}
-                      </p>
-                      <h3 className="text-xl font-bold text-black mb-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-black">{item.description}</p>
-                    </div>
-
-                    {/* Timeline with dot */}
-                    <div className="relative flex items-center mr-10 ml-10">
-                      <span
-                        className="absolute left-1/2 h-[calc(100%+10px)] top-0"
-                        style={{ borderLeft: "1px solid #cbd5e0" }}
-                      />
-                      <div className="relative p-2.5">
-                        <div
-                          className="absolute top-0 left-0 bottom-0 right-0 w-full h-full rounded-full"
-                          style={{ backgroundColor: "#002ad2" }}
+                        <span
+                          className="absolute left-1/2 h-[calc(100%+10px)] top-0"
+                          style={{ borderLeft: "1px solid #cbd5e0" }}
                         />
+                        <div className="relative p-2.5">
+                          <div
+                            className="absolute top-0 left-0 bottom-0 right-0 w-full h-full rounded-full"
+                            style={{ backgroundColor: "#002ad2" }}
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Empty space */}
-                    <div className="hidden md:block flex-1 p-6" />
-                  </>
-                )}
-              </motion.div>
+                      {/* Content card */}
+                      <div
+                        className="flex-1 p-6 rounded-lg relative before:content-[''] before:absolute before:left-[-15px] before:w-0 before:h-0 before:border-15 before:border-transparent before:border-r-[#edf2f6]"
+                        style={{ backgroundColor: "#edf2f6" }}
+                      >
+                        <time
+                          className="text-sm font-medium mb-2 block"
+                          style={{ color: "#002ad2" }}
+                          dateTime={item.date}
+                        >
+                          {item.date}
+                        </time>
+                        <h3
+                          className={cn(
+                            typographyVariants({ variant: "h4" }),
+                            "text-black mb-2",
+                          )}
+                        >
+                          {item.title}
+                        </h3>
+                        <p
+                          className={cn(
+                            typographyVariants({ variant: "small" }),
+                            "text-black",
+                          )}
+                        >
+                          {item.description}
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {/* Content card */}
+                      <div
+                        className="flex-1 p-6 rounded-lg relative before:content-[''] before:absolute before:right-[-15px] before:w-0 before:h-0 before:border-15 before:border-transparent before:border-l-[#edf2f6]"
+                        style={{ backgroundColor: "#edf2f6" }}
+                      >
+                        <time
+                          className="text-sm font-medium mb-2 block"
+                          style={{ color: "#2c5282" }}
+                          dateTime={item.date}
+                        >
+                          {item.date}
+                        </time>
+                        <h3
+                          className={cn(
+                            typographyVariants({ variant: "h4" }),
+                            "text-black mb-2",
+                          )}
+                        >
+                          {item.title}
+                        </h3>
+                        <p
+                          className={cn(
+                            typographyVariants({ variant: "small" }),
+                            "text-black",
+                          )}
+                        >
+                          {item.description}
+                        </p>
+                      </div>
+
+                      {/* Timeline with dot */}
+                      <div
+                        className="relative flex items-center mr-10 ml-10"
+                        aria-hidden="true"
+                      >
+                        <span
+                          className="absolute left-1/2 h-[calc(100%+10px)] top-0"
+                          style={{ borderLeft: "1px solid #cbd5e0" }}
+                        />
+                        <div className="relative p-2.5">
+                          <div
+                            className="absolute top-0 left-0 bottom-0 right-0 w-full h-full rounded-full"
+                            style={{ backgroundColor: "#002ad2" }}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Empty space */}
+                      <div className="flex-1 p-6" aria-hidden="true" />
+                    </>
+                  )}
+                </div>
+              </motion.article>
             );
           })}
         </motion.div>
