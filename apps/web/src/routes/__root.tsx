@@ -1,4 +1,8 @@
-import { HeadContent, Outlet, createRootRouteWithContext } from "@tanstack/react-router";
+import {
+  HeadContent,
+  Outlet,
+  createRootRouteWithContext,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import { ThemeProvider } from "@/components/theme-provider";
@@ -13,11 +17,12 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
   head: () => ({
     meta: [
       {
-        title: "react_chakra_portfolio",
+        title: "Prince Patel - Full Stack Developer Portfolio",
       },
       {
         name: "description",
-        content: "react_chakra_portfolio is a web application",
+        content:
+          "Portfolio of Prince Patel - Full Stack Developer & App Developer. Showcasing projects, skills, and experience in web and mobile development.",
       },
     ],
     links: [
@@ -35,13 +40,12 @@ function RootComponent() {
       <HeadContent />
       <ThemeProvider
         attribute="class"
-        defaultTheme="dark"
+        defaultTheme="light"
+        forcedTheme="light"
         disableTransitionOnChange
         storageKey="vite-ui-theme"
       >
-        <div className="grid grid-rows-[auto_1fr] h-svh">
-          <Outlet />
-        </div>
+        <Outlet />
         <Toaster richColors />
       </ThemeProvider>
       <TanStackRouterDevtools position="bottom-left" />
