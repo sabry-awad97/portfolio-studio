@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Download, FileText, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
-import { generateResume } from "@/lib/resume-generator";
+import { generateResume } from "@/lib/resume-generator/index";
+import { personalInfo, education, projects, skills } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
@@ -31,7 +32,12 @@ export function DownloadResumeButton({
       });
 
       // Generate the resume
-      await generateResume();
+      await generateResume({
+        personalInfo,
+        education,
+        projects,
+        skills,
+      });
 
       // Dismiss loading toast
       toast.dismiss(loadingToast);
