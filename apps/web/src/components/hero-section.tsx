@@ -18,8 +18,12 @@ import {
   typographyVariants,
   touchTargetVariants,
 } from "@/lib/responsive-classes";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export function HeroSection() {
+  const [copiedValue, setCopiedValue] = useState<string | null>(null);
+
   const contactItems = [
     { icon: Mail, label: "Email", value: personalInfo.contact.email },
     { icon: Phone, label: "Phone", value: personalInfo.contact.phone },
@@ -27,6 +31,22 @@ export function HeroSection() {
     { icon: Linkedin, label: "Linkedin", value: personalInfo.contact.linkedin },
     { icon: Twitter, label: "Twitter", value: personalInfo.contact.twitter },
   ];
+
+  const handleCopy = async (value: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopiedValue(value);
+      toast.success(`${label} copied!`, {
+        description: value,
+        duration: 2000,
+      });
+      setTimeout(() => setCopiedValue(null), 2000);
+    } catch (error) {
+      toast.error("Failed to copy", {
+        description: "Please try again",
+      });
+    }
+  };
 
   const socialLinks = [
     { icon: Facebook, href: personalInfo.social.facebook, name: "Facebook" },
@@ -65,7 +85,7 @@ export function HeroSection() {
             <h1
               className={cn(
                 typographyVariants({ variant: "h1" }),
-                "text-black",
+                "text-black bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent font-bold tracking-tight whitespace-nowrap",
               )}
             >
               {personalInfo.name}
@@ -73,7 +93,7 @@ export function HeroSection() {
             <p
               className={cn(
                 typographyVariants({ variant: "small" }),
-                "text-gray-800 max-w-md",
+                "text-gray-800 max-w-md text-justify",
               )}
             >
               {personalInfo.bio}
@@ -97,10 +117,7 @@ export function HeroSection() {
 
           <div className="w-full space-y-6">
             {contactItems.map((item) => (
-              <div
-                key={item.label}
-                className="flex items-center gap-4"
-              >
+              <div key={item.label} className="flex items-center gap-4">
                 <div
                   className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-300 bg-white shadow-sm shrink-0"
                   aria-hidden="true"
@@ -116,17 +133,19 @@ export function HeroSection() {
                   >
                     {item.label}
                   </p>
-                  <p
+                  <button
+                    onClick={() => handleCopy(item.value, item.label)}
                     className={cn(
                       typographyVariants({
                         variant: "body",
                         weight: "semibold",
                       }),
-                      "text-gray-800 truncate",
+                      "text-gray-800 truncate block w-full text-left hover:text-primary transition-colors cursor-pointer",
                     )}
+                    title={`Click to copy: ${item.value}`}
                   >
                     {item.value}
-                  </p>
+                  </button>
                 </div>
               </div>
             ))}

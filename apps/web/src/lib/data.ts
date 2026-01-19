@@ -1,12 +1,12 @@
 export const personalInfo = {
-  name: "Prince Patel",
+  name: "Sabry Awad",
   title: "Full Stack Developer",
   subtitle: "App Developer",
   avatar: "https://www.getillustrations.com/photos/pack/3d-avatar-male_lg.png",
   bio: "I am currently pursuing MCA from College of Engineering, Anna University, Tamil Nadu. I am looking for internship and job opportunities (Degree Completion in 2023).",
   contact: {
-    email: "princepatelcodes@example.com",
-    phone: "+91-1234567890",
+    email: "dr.sabry1997@gmail.com",
+    phone: "+201030320366",
     github: "princepatelcodes",
     linkedin: "princepatell",
     twitter: "princepatelt",

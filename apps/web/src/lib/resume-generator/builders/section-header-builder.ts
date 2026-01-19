@@ -12,8 +12,6 @@ export function buildSectionHeader(
   config: ResumeConfig,
 ): Paragraph {
   return new Paragraph({
-    text: title,
-    heading: HeadingLevel.HEADING_1,
     spacing: {
       before: config.spacing.md,
       after: config.spacing.sm,
