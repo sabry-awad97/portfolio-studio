@@ -35,7 +35,6 @@ export function EducationSection() {
         className={cn(
           paddingVariants({ size: "lg" }),
           "pt-3 overflow-y-auto max-h-[500px] md:max-h-[800px] relative flex-1",
-          "after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-8 after:bg-gradient-to-t after:from-white after:to-transparent after:pointer-events-none",
         )}
       >
         <section aria-label="Education timeline">
@@ -127,7 +126,7 @@ export function EducationSection() {
                         </div>
 
                         {/* Content card */}
-                        <div className="flex-1 p-6 rounded-lg relative bg-gray-100 before:content-[''] before:absolute before:left-[-15px] before:w-0 before:h-0 before:border-[15px] before:border-transparent before:border-r-gray-100">
+                        <div className="flex-1 p-6 rounded-lg relative bg-gray-100 before:content-[''] before:absolute before:left-[-15px] before:w-0 before:h-0 before:border-15 before:border-transparent before:border-r-gray-100">
                           <time
                             className="text-sm font-medium mb-2 block text-primary"
                             dateTime={item.date}
@@ -155,7 +154,7 @@ export function EducationSection() {
                     ) : (
                       <>
                         {/* Content card */}
-                        <div className="flex-1 p-6 rounded-lg relative bg-gray-100 before:content-[''] before:absolute before:right-[-15px] before:w-0 before:h-0 before:border-[15px] before:border-transparent before:border-l-gray-100">
+                        <div className="flex-1 p-6 rounded-lg relative bg-gray-100 before:content-[''] before:absolute before:right-[-15px] before:w-0 before:h-0 before:border-15 before:border-transparent before:border-l-gray-100">
                           <time
                             className="text-sm font-medium mb-2 block text-primary"
                             dateTime={item.date}
