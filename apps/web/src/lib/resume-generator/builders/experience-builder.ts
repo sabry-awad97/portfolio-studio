@@ -56,10 +56,13 @@ export function buildExperience(
     );
 
     // Responsibilities as bullet points
-    for (const responsibility of exp.responsibilities) {
+    for (let i = 0; i < exp.responsibilities.length; i++) {
+      const responsibility = exp.responsibilities[i];
+      const isLast = i === exp.responsibilities.length - 1;
+
       paragraphs.push(
         new Paragraph({
-          spacing: { after: config.spacing.xs },
+          spacing: { after: isLast ? config.spacing.sm : config.spacing.xs },
           bullet: {
             level: 0,
           },
@@ -73,14 +76,6 @@ export function buildExperience(
           ],
         }),
       );
-    }
-
-    // Add spacing after last responsibility
-    if (exp.responsibilities.length > 0) {
-      paragraphs[paragraphs.length - 1] = new Paragraph({
-        ...paragraphs[paragraphs.length - 1],
-        spacing: { after: config.spacing.sm },
-      });
     }
   }
 

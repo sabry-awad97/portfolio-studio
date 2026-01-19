@@ -6,6 +6,8 @@ import {
   WidthType,
   TextRun,
   VerticalAlign,
+  BorderStyle,
+  convertInchesToTwip,
 } from "docx";
 import type { Skills } from "../types";
 import type { ResumeConfig } from "../configuration/config-types";
@@ -54,6 +56,38 @@ export function buildSkills(
         size: 100,
         type: WidthType.PERCENTAGE,
       },
+      borders: {
+        top: {
+          style: BorderStyle.SINGLE,
+          size: 1,
+          color: config.colors.secondary,
+        },
+        bottom: {
+          style: BorderStyle.SINGLE,
+          size: 1,
+          color: config.colors.secondary,
+        },
+        left: {
+          style: BorderStyle.SINGLE,
+          size: 1,
+          color: config.colors.secondary,
+        },
+        right: {
+          style: BorderStyle.SINGLE,
+          size: 1,
+          color: config.colors.secondary,
+        },
+        insideHorizontal: {
+          style: BorderStyle.SINGLE,
+          size: 1,
+          color: config.colors.accent,
+        },
+        insideVertical: {
+          style: BorderStyle.SINGLE,
+          size: 1,
+          color: config.colors.accent,
+        },
+      },
       rows,
     });
 
@@ -80,6 +114,12 @@ function createSkillRow(
           type: WidthType.PERCENTAGE,
         },
         verticalAlign: VerticalAlign.CENTER,
+        margins: {
+          top: convertInchesToTwip(0.05), // 0.05 inches = ~3.6pt padding
+          bottom: convertInchesToTwip(0.05),
+          left: convertInchesToTwip(0.1), // 0.1 inches = ~7.2pt padding
+          right: convertInchesToTwip(0.1),
+        },
         children: [
           new Paragraph({
             children: [
@@ -101,6 +141,12 @@ function createSkillRow(
           type: WidthType.PERCENTAGE,
         },
         verticalAlign: VerticalAlign.CENTER,
+        margins: {
+          top: convertInchesToTwip(0.05),
+          bottom: convertInchesToTwip(0.05),
+          left: convertInchesToTwip(0.1),
+          right: convertInchesToTwip(0.1),
+        },
         children: [
           new Paragraph({
             children: [
