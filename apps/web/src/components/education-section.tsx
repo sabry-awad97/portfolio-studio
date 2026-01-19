@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { education } from "@/lib/data";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 import {
   cardVariants,
@@ -14,6 +14,9 @@ const itemVariants = {
 };
 
 export function EducationSection() {
+  const shouldReduceMotion = useReducedMotion();
+  const variants = shouldReduceMotion ? {} : itemVariants;
+
   return (
     <Card
       id="education"
@@ -36,6 +39,10 @@ export function EducationSection() {
           paddingVariants({ size: "lg" }),
           "pt-3 overflow-y-auto max-h-[500px] md:max-h-[800px] relative flex-1",
         )}
+        style={{ contentVisibility: "auto" }}
+        tabIndex={0}
+        role="region"
+        aria-label="Scrollable education timeline"
       >
         <section aria-label="Education timeline">
           <motion.div
@@ -52,7 +59,7 @@ export function EducationSection() {
                 <motion.article
                   key={item.id}
                   className="mb-2.5"
-                  variants={itemVariants}
+                  variants={variants}
                   aria-label={`${item.title} - ${item.date}`}
                 >
                   {/* Mobile view - simplified single column */}
@@ -126,7 +133,7 @@ export function EducationSection() {
                         </div>
 
                         {/* Content card */}
-                        <div className="flex-1 p-6 rounded-lg relative bg-gray-100 before:content-[''] before:absolute before:left-[-15px] before:w-0 before:h-0 before:border-15 before:border-transparent before:border-r-gray-100">
+                        <div className="flex-1 p-6 rounded-lg relative bg-gray-100 before:content-[''] before:absolute before:left-[-14px] before:w-0 before:h-0 before:border-14 before:border-transparent before:border-r-gray-100">
                           <time
                             className="text-sm font-medium mb-2 block text-primary"
                             dateTime={item.date}
@@ -154,7 +161,7 @@ export function EducationSection() {
                     ) : (
                       <>
                         {/* Content card */}
-                        <div className="flex-1 p-6 rounded-lg relative bg-gray-100 before:content-[''] before:absolute before:right-[-15px] before:w-0 before:h-0 before:border-15 before:border-transparent before:border-l-gray-100">
+                        <div className="flex-1 p-6 rounded-lg relative bg-gray-100 before:content-[''] before:absolute before:right-[-14px] before:w-0 before:h-0 before:border-14 before:border-transparent before:border-l-gray-100">
                           <time
                             className="text-sm font-medium mb-2 block text-primary"
                             dateTime={item.date}

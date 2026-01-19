@@ -48,7 +48,7 @@ export function Footer() {
           <p
             className={cn(
               typographyVariants({ variant: "h4", weight: "bold" }),
-              "text-gray-700",
+              "text-gray-900",
             )}
           >
             {personalInfo.name}

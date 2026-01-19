@@ -22,17 +22,17 @@ export const paddingVariants = cva("", {
   },
 });
 
-// Typography variants
+// Typography variants with smoother scaling
 export const typographyVariants = cva("font-sans", {
   variants: {
     variant: {
-      h1: "text-2xl sm:text-3xl md:text-4xl font-bold",
-      h2: "text-xl sm:text-2xl md:text-3xl font-bold",
-      h3: "text-lg sm:text-xl md:text-2xl font-bold",
-      h4: "text-base sm:text-lg md:text-xl font-bold",
-      body: "text-sm sm:text-base",
-      small: "text-xs sm:text-sm",
-      caption: "text-xs",
+      h1: "text-3xl md:text-4xl lg:text-5xl font-bold leading-tight",
+      h2: "text-2xl md:text-3xl lg:text-4xl font-bold leading-tight",
+      h3: "text-xl md:text-2xl lg:text-3xl font-bold leading-snug",
+      h4: "text-lg md:text-xl lg:text-2xl font-bold leading-snug",
+      body: "text-base leading-relaxed",
+      small: "text-sm leading-relaxed",
+      caption: "text-xs leading-normal",
     },
     weight: {
       normal: "font-normal",

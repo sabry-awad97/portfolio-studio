@@ -47,14 +47,15 @@ export function HeroSection() {
           "flex flex-col justify-between flex-1",
         )}
       >
-        <div className="flex flex-col items-center text-center space-y-4 md:space-y-6">
+        <div className="flex flex-col items-center text-center space-y-6">
           <div className="relative">
             <div className="size-24 sm:size-32 rounded-full overflow-hidden border-4 border-gray-100">
               <img
                 src={personalInfo.avatar}
                 alt={`${personalInfo.name}'s profile picture`}
                 className="w-full h-full object-cover"
-                loading="lazy"
+                loading="eager"
+                fetchPriority="high"
                 decoding="async"
               />
             </div>
@@ -72,7 +73,7 @@ export function HeroSection() {
             <p
               className={cn(
                 typographyVariants({ variant: "small" }),
-                "text-gray-700 max-w-md",
+                "text-gray-800 max-w-md",
               )}
             >
               {personalInfo.bio}
@@ -89,16 +90,16 @@ export function HeroSection() {
           </div>
 
           <div
-            className="w-full h-px bg-gray-300 my-2 md:my-4"
+            className="w-full h-px bg-gray-300 my-4"
             role="separator"
             aria-hidden="true"
           />
 
-          <div className="w-full space-y-4 md:space-y-6">
+          <div className="w-full space-y-6">
             {contactItems.map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-3 md:gap-4"
+                className="flex items-center gap-4"
               >
                 <div
                   className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-300 bg-white shadow-sm shrink-0"
@@ -110,7 +111,7 @@ export function HeroSection() {
                   <p
                     className={cn(
                       typographyVariants({ variant: "small" }),
-                      "text-gray-700",
+                      "text-gray-800",
                     )}
                   >
                     {item.label}

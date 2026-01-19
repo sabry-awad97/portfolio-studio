@@ -28,7 +28,7 @@ export function SkillsSection() {
         <p
           className={cn(
             typographyVariants({ variant: "small" }),
-            "text-gray-700",
+            "text-gray-800",
           )}
         >
           My skills, which I constantly keep improving.

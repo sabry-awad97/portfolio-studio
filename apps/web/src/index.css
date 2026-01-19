@@ -133,31 +133,56 @@
   html {
     @apply font-sans scroll-smooth;
   }
+  
+  /* Account for sticky header in anchor navigation */
+  [id] {
+    scroll-margin-top: 5rem;
+  }
 }
 
 /* Custom scrollbar styling - Webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #121212;
+  background: oklch(0.967 0.001 286.375);
   border-radius: 12px;
 }
 
+::-webkit-scrollbar-thumb {
+  background: oklch(0.552 0.016 285.938);
+  border-radius: 12px;
+  border: 2px solid oklch(0.967 0.001 286.375);
+}
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #000000;
+  background: oklch(0.45 0.016 285.938);
 }
 
 /* Custom scrollbar styling - Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #121212 transparent;
+  scrollbar-color: oklch(0.552 0.016 285.938) oklch(0.967 0.001 286.375);
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: oklch(0.274 0.006 286.033);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: oklch(0.552 0.016 285.938);
+  border-color: oklch(0.274 0.006 286.033);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.705 0.015 286.067);
+}
+
+.dark * {
+  scrollbar-color: oklch(0.552 0.016 285.938) oklch(0.274 0.006 286.033);
 }
 
 /* Enhanced focus indicators for accessibility */

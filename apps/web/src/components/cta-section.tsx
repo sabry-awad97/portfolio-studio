@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { sectionVariants, typographyVariants } from "@/lib/responsive-classes";
+import {
+  sectionVariants,
+  typographyVariants,
+  paddingVariants,
+} from "@/lib/responsive-classes";
 
 export function CTASection() {
   return (
@@ -12,8 +16,8 @@ export function CTASection() {
       )}
     >
       <Card className="rounded-3xl bg-white">
-        <CardContent className="p-6 sm:p-8 md:p-12">
-          <div className="flex flex-col items-center text-center space-y-4 md:space-y-6">
+        <CardContent className={cn(paddingVariants({ size: "xl" }))}>
+          <div className="flex flex-col items-center text-center space-y-6">
             <h2
               className={cn(
                 typographyVariants({ variant: "h1", weight: "extrabold" }),
@@ -25,7 +29,7 @@ export function CTASection() {
             <p
               className={cn(
                 typographyVariants({ variant: "body" }),
-                "text-gray-700 max-w-2xl",
+                "text-gray-800 max-w-2xl",
               )}
             >
               I have spent enough time with simple and complex full-fledged
