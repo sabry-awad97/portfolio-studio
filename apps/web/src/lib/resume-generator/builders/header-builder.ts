@@ -1,4 +1,4 @@
-import { Paragraph, TextRun, AlignmentType, UnderlineType } from "docx";
+import { Paragraph, TextRun, AlignmentType } from "docx";
 import type { PersonalInfo } from "../types";
 import type { ResumeConfig } from "../configuration/config-types";
 
@@ -89,7 +89,7 @@ export function buildHeader(
         text: personalInfo.contact.linkedin,
         size: config.typography.sizes.small,
         color: config.colors.primary,
-        underline: { type: UnderlineType.SINGLE },
+        // No underline for modern, clean look
       }),
     );
   }
@@ -107,7 +107,7 @@ export function buildHeader(
         text: personalInfo.contact.github,
         size: config.typography.sizes.small,
         color: config.colors.primary,
-        underline: { type: UnderlineType.SINGLE },
+        // No underline for modern, clean look
       }),
     );
   }

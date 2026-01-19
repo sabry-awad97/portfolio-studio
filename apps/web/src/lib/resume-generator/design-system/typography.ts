@@ -2,7 +2,7 @@
 
 export const TYPOGRAPHY = {
   sizes: {
-    title: 36, // Main name/title (18pt)
+    title: 32, // Main name/title (16pt) - Reduced from 18pt to prevent overflow
     heading1: 28, // Section headings (14pt)
     heading2: 24, // Subsection headings (12pt)
     body: 22, // Body text (11pt)

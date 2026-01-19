@@ -31,12 +31,12 @@ export const MODERN_THEME: ResumeConfig = {
   typography: {
     ...DEFAULT_CONFIG.typography,
     sizes: {
-      title: 40,
-      heading1: 30,
-      heading2: 26,
-      body: 22,
-      small: 20,
-      caption: 18,
+      title: 36, // Slightly larger for modern theme (18pt)
+      heading1: 30, // 15pt
+      heading2: 26, // 13pt
+      body: 22, // 11pt
+      small: 20, // 10pt
+      caption: 18, // 9pt
     },
   },
   template: "modern",
