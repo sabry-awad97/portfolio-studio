@@ -49,7 +49,7 @@ export function HeroSection() {
       >
         <div className="flex flex-col items-center text-center space-y-4 md:space-y-6">
           <div className="relative">
-            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-gray-100">
+            <div className="size-24 sm:size-32 rounded-full overflow-hidden border-4 border-gray-100">
               <img
                 src={personalInfo.avatar}
                 alt={`${personalInfo.name}'s profile picture`}

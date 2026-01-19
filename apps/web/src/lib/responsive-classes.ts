@@ -75,9 +75,9 @@ export const touchTargetVariants = cva(
 export const cardVariants = cva("bg-white rounded-3xl overflow-hidden", {
   variants: {
     size: {
-      sm: "min-h-[400px] md:min-h-[500px]",
-      md: "min-h-[600px] md:min-h-[800px]",
-      lg: "min-h-[800px] md:min-h-[1000px]",
+      sm: "min-h-[300px] md:min-h-[400px]",
+      md: "min-h-[400px] md:min-h-[600px]", // Reduced from 600/800
+      lg: "min-h-[600px] md:min-h-[800px]",
       auto: "min-h-0",
     },
     padding: {

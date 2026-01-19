@@ -39,7 +39,7 @@ function HomeComponent() {
           <h2 id="profile-heading" className="sr-only">
             Profile and Education
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[minmax(350px,400px)_1fr] gap-6 md:gap-8 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(350px,400px)_1fr] gap-6 md:gap-8 auto-rows-fr">
             <motion.div variants={fadeInUp} className="flex w-full">
               <HeroSection />
             </motion.div>
