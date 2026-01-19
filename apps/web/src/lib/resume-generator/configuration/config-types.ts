@@ -1,5 +1,5 @@
 import type { ColorScheme } from "../design-system/colors";
-import type { TypographySizes } from "../design-system/typography";
+import type { TypographySizes, LineSpacing } from "../design-system/typography";
 
 /**
  * Template type for different resume layouts
@@ -15,6 +15,7 @@ export interface TypographyConfig {
     primary: string;
     secondary: string;
   };
+  lineSpacing: LineSpacing;
 }
 
 /**

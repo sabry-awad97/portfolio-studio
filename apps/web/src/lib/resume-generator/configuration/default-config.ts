@@ -12,6 +12,7 @@ export const DEFAULT_CONFIG: ResumeConfig = {
   typography: {
     sizes: TYPOGRAPHY.sizes,
     fonts: TYPOGRAPHY.fonts,
+    lineSpacing: TYPOGRAPHY.lineSpacing,
   },
   spacing: SPACING,
   margins: {
