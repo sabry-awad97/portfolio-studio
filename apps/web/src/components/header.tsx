@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { touchTargetVariants } from "@/lib/responsive-classes";
+import { DownloadResumeButton } from "@/components/download-resume-button";
 
 const navItems = [
   { label: "Education", href: "#education" },
@@ -54,15 +55,9 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-4 ml-auto">
-            <Button
-              size="sm"
-              className="hidden sm:inline-flex bg-primary hover:bg-primary/90 text-white font-semibold min-h-[44px]"
-              asChild
-            >
-              <a href="#" aria-label="View resume document">
-                View Resume
-              </a>
-            </Button>
+            <div className="hidden sm:block">
+              <DownloadResumeButton size="sm" />
+            </div>
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild className="md:hidden">
@@ -94,14 +89,7 @@ export function Header() {
                       {item.label}
                     </a>
                   ))}
-                  <Button
-                    className="mt-4 bg-primary hover:bg-primary/90 min-h-[48px]"
-                    asChild
-                  >
-                    <a href="#" aria-label="View resume document">
-                      View Resume
-                    </a>
-                  </Button>
+                  <DownloadResumeButton className="mt-4" />
                 </nav>
               </SheetContent>
             </Sheet>

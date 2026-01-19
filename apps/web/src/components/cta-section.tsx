@@ -6,6 +6,7 @@ import {
   typographyVariants,
   paddingVariants,
 } from "@/lib/responsive-classes";
+import { DownloadResumeButton } from "@/components/download-resume-button";
 
 export function CTASection() {
   return (
@@ -39,18 +40,25 @@ export function CTASection() {
               <br />
               Let us discuss more about your work.
             </p>
-            <Button
-              size="lg"
-              className="gap-2 bg-primary hover:bg-primary/90 text-white px-8 sm:px-10 transition-all hover:px-12 min-h-[48px]"
-              asChild
-            >
-              <a
-                href="mailto:iprincepatel22@gmail.com"
-                aria-label="Send email to discuss freelance work"
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+              <Button
+                size="lg"
+                className="gap-2 bg-primary hover:bg-primary/90 text-white px-8 sm:px-10 transition-all hover:px-12 min-h-[48px]"
+                asChild
               >
-                Send an Email
-              </a>
-            </Button>
+                <a
+                  href="mailto:iprincepatel22@gmail.com"
+                  aria-label="Send email to discuss freelance work"
+                >
+                  Send an Email
+                </a>
+              </Button>
+              <DownloadResumeButton
+                size="lg"
+                variant="outline"
+                className="min-h-[48px] border-2 hover:bg-primary/5"
+              />
+            </div>
           </div>
         </CardContent>
       </Card>
