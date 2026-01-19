@@ -1,0 +1,3 @@
+{
+  "extends": "@react_chakra_portfolio/config/tsconfig.base.json"
+}
