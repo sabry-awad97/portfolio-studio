@@ -38,7 +38,7 @@
     "@radix-ui/react-toggle": "^1.1.10",
     "@radix-ui/react-toggle-group": "^1.1.11",
     "@radix-ui/react-tooltip": "^1.2.8",
-    "@react_chakra_portfolio/env": "workspace:*",
+    "@portfolio-studio/env": "workspace:*",
     "@tailwindcss/vite": "^4.0.15",
     "@tanstack/react-form": "^1.12.3",
     "@tanstack/react-router": "^1.141.1",
@@ -66,7 +66,7 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
-    "@react_chakra_portfolio/config": "workspace:*",
+    "@portfolio-studio/config": "workspace:*",
     "@tanstack/react-router-devtools": "^1.141.1",
     "@tanstack/router-plugin": "^1.141.1",
     "@types/node": "^22.13.14",

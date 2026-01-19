@@ -15,8 +15,8 @@ export const Route = createFileRoute("/")({
 });
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
+  initial: { opacity: 0, transform: "translateY(20px)" },
+  animate: { opacity: 1, transform: "translateY(0)" },
   transition: { duration: 0.3 },
 };
 
@@ -39,11 +39,11 @@ function HomeComponent() {
           <h2 id="profile-heading" className="sr-only">
             Profile and Education
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[400px_1fr] gap-6 md:gap-8 items-stretch">
-            <motion.div variants={fadeInUp} className="flex">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[minmax(350px,400px)_1fr] gap-6 md:gap-8 items-stretch">
+            <motion.div variants={fadeInUp} className="flex w-full">
               <HeroSection />
             </motion.div>
-            <motion.div variants={fadeInUp} className="flex">
+            <motion.div variants={fadeInUp} className="flex w-full">
               <EducationSection />
             </motion.div>
           </div>
@@ -63,11 +63,11 @@ function HomeComponent() {
           <h2 id="work-heading" className="sr-only">
             Projects and Skills
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_400px] gap-6 md:gap-8 items-stretch">
-            <motion.div variants={fadeInUp} className="flex">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_minmax(350px,400px)] gap-6 md:gap-8 items-stretch">
+            <motion.div variants={fadeInUp} className="flex w-full">
               <ProjectsSection />
             </motion.div>
-            <motion.div variants={fadeInUp} className="flex">
+            <motion.div variants={fadeInUp} className="flex w-full">
               <SkillsSection />
             </motion.div>
           </div>

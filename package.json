@@ -1,5 +1,5 @@
 {
-  "name": "react_chakra_portfolio",
+  "name": "portfolio-studio",
   "private": true,
   "workspaces": {
     "packages": [
@@ -21,12 +21,12 @@
     "dev:web": "turbo -F web dev"
   },
   "dependencies": {
-    "@react_chakra_portfolio/env": "workspace:*",
+    "@portfolio-studio/env": "workspace:*",
     "dotenv": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@react_chakra_portfolio/config": "workspace:*",
+    "@portfolio-studio/config": "workspace:*",
     "turbo": "^2.6.3",
     "typescript": "catalog:"
   },

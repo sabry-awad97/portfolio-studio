@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { touchTargetVariants } from "@/lib/responsive-classes";
 
 const navItems = [
+  { label: "Education", href: "#education" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
   { label: "Freelance", href: "#freelance" },
@@ -19,12 +20,12 @@ export function Header() {
       {/* Skip to main content link for accessibility */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-60 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
       >
         Skip to main content
       </a>
 
-      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-sm supports-[backdrop-filter]:bg-white/80">
+      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-sm supports-backdrop-filter:bg-white/80">
         <div className="flex h-16 items-center px-4">
           <div className="flex items-center gap-2">
             <div className="h-12 p-2">
@@ -44,7 +45,7 @@ export function Header() {
                 href={item.href}
                 className={cn(
                   touchTargetVariants({ size: "sm" }),
-                  "px-4 py-3 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-800 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+                  "px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                 )}
               >
                 {item.label}

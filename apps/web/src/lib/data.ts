@@ -53,7 +53,7 @@ export const projects = [
   {
     id: 1,
     date: "2020",
-    title: "Simple e-Commerce Website",
+    title: "ShopHub - Modern E-Commerce Platform",
     description:
       "Built a fully functional e-commerce platform with product catalog, shopping cart, and checkout functionality. Implemented responsive design and user authentication.",
     tags: ["React", "Node.js", "MongoDB"],
@@ -61,7 +61,7 @@ export const projects = [
   {
     id: 2,
     date: "FEB, 2021",
-    title: "A React Medical Application",
+    title: "MediCare - Healthcare Management System",
     description:
       "Developed a comprehensive medical application for patient management, appointment scheduling, and medical records. Features include real-time notifications and secure data handling.",
     tags: ["React", "Express", "PostgreSQL"],
@@ -69,7 +69,7 @@ export const projects = [
   {
     id: 3,
     date: "2022",
-    title: "E-Learning App (Ongoing)",
+    title: "EduVerse - Interactive Learning Platform",
     description:
       "Creating an interactive e-learning platform with video courses, quizzes, and progress tracking. Includes features for both students and instructors.",
     tags: ["Flutter", "Firebase", "Node.js"],

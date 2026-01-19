@@ -1,5 +1,5 @@
 {
-  "name": "@react_chakra_portfolio/env",
+  "name": "@portfolio-studio/env",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -12,7 +12,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@react_chakra_portfolio/config": "workspace:*",
+    "@portfolio-studio/config": "workspace:*",
     "typescript": "catalog:"
   }
 }

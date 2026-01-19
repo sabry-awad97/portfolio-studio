@@ -12,7 +12,10 @@ export function SkillsSection() {
   return (
     <Card
       id="skills"
-      className={cn(cardVariants({ size: "md" }), "rounded-3xl")}
+      className={cn(
+        cardVariants({ size: "md" }),
+        "rounded-3xl w-full h-full flex flex-col",
+      )}
       aria-labelledby="skills-title"
     >
       <CardHeader className={cn(paddingVariants({ size: "lg" }))}>
@@ -23,13 +26,16 @@ export function SkillsSection() {
           Skills
         </CardTitle>
         <p
-          className={cn(typographyVariants({ variant: "small" }), "text-black")}
+          className={cn(
+            typographyVariants({ variant: "small" }),
+            "text-gray-700",
+          )}
         >
           My skills, which I constantly keep improving.
         </p>
       </CardHeader>
       <CardContent
-        className={cn(paddingVariants({ size: "lg" }), "pt-0 space-y-4")}
+        className={cn(paddingVariants({ size: "lg" }), "pt-0 space-y-4 flex-1")}
       >
         <section aria-labelledby="languages-heading">
           <h3

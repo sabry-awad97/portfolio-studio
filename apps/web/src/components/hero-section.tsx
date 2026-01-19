@@ -38,13 +38,13 @@ export function HeroSection() {
     <Card
       className={cn(
         cardVariants({ size: "md" }),
-        "overflow-hidden rounded-3xl flex flex-col justify-between",
+        "overflow-hidden rounded-3xl w-full h-full flex flex-col",
       )}
     >
       <CardContent
         className={cn(
           paddingVariants({ size: "lg" }),
-          "flex flex-col justify-between h-full",
+          "flex flex-col justify-between flex-1",
         )}
       >
         <div className="flex flex-col items-center text-center space-y-4 md:space-y-6">
@@ -72,7 +72,7 @@ export function HeroSection() {
             <p
               className={cn(
                 typographyVariants({ variant: "small" }),
-                "text-black max-w-md",
+                "text-gray-700 max-w-md",
               )}
             >
               {personalInfo.bio}
@@ -110,7 +110,7 @@ export function HeroSection() {
                   <p
                     className={cn(
                       typographyVariants({ variant: "small" }),
-                      "text-black",
+                      "text-gray-700",
                     )}
                   >
                     {item.label}
@@ -121,7 +121,7 @@ export function HeroSection() {
                         variant: "body",
                         weight: "semibold",
                       }),
-                      "text-black truncate",
+                      "text-gray-800 truncate",
                     )}
                   >
                     {item.value}
