@@ -1,4 +1,4 @@
-import { Paragraph, TextRun, AlignmentType } from "docx";
+import { Paragraph, TextRun, AlignmentType, ExternalHyperlink } from "docx";
 import type { PersonalInfo } from "../types";
 import type { ResumeConfig } from "../configuration/config-types";
 
@@ -47,11 +47,11 @@ export function buildHeader(
     }),
   );
 
-  // Contact information (ATS-compatible, no emojis)
-  const contactParts: TextRun[] = [];
+  // Contact information (ATS-compatible, no emojis, with clickable links)
+  const contactChildren: (TextRun | ExternalHyperlink)[] = [];
 
   // Email
-  contactParts.push(
+  contactChildren.push(
     new TextRun({
       text: personalInfo.contact.email,
       size: config.typography.sizes.small,
@@ -61,13 +61,13 @@ export function buildHeader(
 
   // Phone
   if (personalInfo.contact.phone) {
-    contactParts.push(
+    contactChildren.push(
       new TextRun({
         text: " | ",
         size: config.typography.sizes.small,
       }),
     );
-    contactParts.push(
+    contactChildren.push(
       new TextRun({
         text: personalInfo.contact.phone,
         size: config.typography.sizes.small,
@@ -76,38 +76,60 @@ export function buildHeader(
     );
   }
 
-  // LinkedIn
+  // LinkedIn (with hyperlink)
   if (personalInfo.contact.linkedin) {
-    contactParts.push(
+    contactChildren.push(
       new TextRun({
         text: " | ",
         size: config.typography.sizes.small,
       }),
     );
-    contactParts.push(
-      new TextRun({
-        text: personalInfo.contact.linkedin,
-        size: config.typography.sizes.small,
-        color: config.colors.primary,
-        // No underline for modern, clean look
+
+    // Add https:// if not present
+    const linkedinUrl = personalInfo.contact.linkedin.startsWith("http")
+      ? personalInfo.contact.linkedin
+      : `https://${personalInfo.contact.linkedin}`;
+
+    contactChildren.push(
+      new ExternalHyperlink({
+        link: linkedinUrl,
+        children: [
+          new TextRun({
+            text: personalInfo.contact.linkedin,
+            size: config.typography.sizes.small,
+            color: config.colors.primary,
+            style: "Hyperlink",
+          }),
+        ],
       }),
     );
   }
 
-  // GitHub
+  // GitHub (with hyperlink)
   if (personalInfo.contact.github) {
-    contactParts.push(
+    contactChildren.push(
       new TextRun({
         text: " | ",
         size: config.typography.sizes.small,
       }),
     );
-    contactParts.push(
-      new TextRun({
-        text: personalInfo.contact.github,
-        size: config.typography.sizes.small,
-        color: config.colors.primary,
-        // No underline for modern, clean look
+
+    // Add https:// if not present
+    const githubUrl = personalInfo.contact.github.startsWith("http")
+      ? personalInfo.contact.github
+      : `https://${personalInfo.contact.github}`;
+
+    contactChildren.push(
+      new ExternalHyperlink({
+        link: githubUrl,
+        children: [
+          new TextRun({
+            text: personalInfo.contact.github,
+            size: config.typography.sizes.small,
+            color: config.colors.primary,
+            style: "Hyperlink",
+          }),
+        ],
       }),
     );
   }
@@ -116,7 +138,7 @@ export function buildHeader(
     new Paragraph({
       alignment: AlignmentType.CENTER,
       spacing: { after: config.spacing.md },
-      children: contactParts,
+      children: contactChildren,
     }),
   );
 

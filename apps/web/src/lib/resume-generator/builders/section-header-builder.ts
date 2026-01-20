@@ -1,4 +1,4 @@
-import { Paragraph, TextRun, BorderStyle } from "docx";
+import { Paragraph, TextRun, BorderStyle, HeadingLevel } from "docx";
 import type { ResumeConfig } from "../configuration/config-types";
 
 /**
@@ -12,6 +12,7 @@ export function buildSectionHeader(
   config: ResumeConfig,
 ): Paragraph {
   return new Paragraph({
+    heading: HeadingLevel.HEADING_1, // Proper heading level for document outline
     spacing: {
       before: config.spacing.md,
       after: config.spacing.sm,

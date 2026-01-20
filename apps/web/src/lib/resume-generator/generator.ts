@@ -1,6 +1,6 @@
 import { Packer } from "docx";
 import { saveAs } from "file-saver";
-import { validateResumeData } from "./validation/validator";
+import { validateResumeData, sanitizeResumeData } from "./validation/validator";
 import { ResumeGenerationError, TemplateError } from "./validation/errors";
 import { loadConfiguration } from "./configuration/config-loader";
 import { ProfessionalTemplate } from "./templates/professional-template";
@@ -48,19 +48,22 @@ export async function generateResume(
       );
     }
 
-    // Step 2: Load and merge configuration
+    // Step 2: Sanitize data to remove unsafe characters
+    const sanitizedData = sanitizeResumeData(data);
+
+    // Step 3: Load and merge configuration
     const config = loadConfiguration(customConfig);
 
-    // Step 3: Select template
+    // Step 4: Select template
     const template = getTemplate(config.template);
 
-    // Step 4: Build document
-    const doc = template.buildDocument(data, config);
+    // Step 5: Build document with sanitized data
+    const doc = template.buildDocument(sanitizedData, config);
 
-    // Step 5: Generate blob
+    // Step 6: Generate blob
     const blob = await Packer.toBlob(doc);
 
-    // Step 6: Save file with sanitized filename
+    // Step 7: Save file with sanitized filename
     const filename = sanitizeFilename(data.personalInfo.name);
     saveAs(blob, filename);
   } catch (error) {
