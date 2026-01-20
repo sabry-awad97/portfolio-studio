@@ -7,7 +7,6 @@ export {
   THEME_PRESETS,
   type ThemePresetName,
 } from "./theme-presets";
-export { loadConfiguration, validateConfiguration } from "./config-loader";
 export type {
   ResumeConfig,
   TypographyConfig,

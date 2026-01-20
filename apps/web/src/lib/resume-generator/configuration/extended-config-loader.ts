@@ -118,39 +118,12 @@ export function loadExtendedConfiguration(
  * @throws ConfigurationError if configuration is invalid
  */
 function validateMergedConfig(config: ExtendedResumeConfig): void {
-  // Validate base config properties
+  // Validate base config properties (colors, spacing, margins, font sizes)
   validateConfig(config);
 
   // Validate column widths sum to 100
   if (config.table_config?.skills_column_widths) {
     validateColumnWidths(config.table_config.skills_column_widths);
-  }
-
-  // Validate template type
-  if (config.template !== "professional" && config.template !== "modern") {
-    throw new Error('Template must be either "professional" or "modern"');
-  }
-
-  // Validate margins are reasonable (between 0.5 and 2 inches)
-  if (config.margins.top < 0.5 || config.margins.top > 2) {
-    throw new Error("Top margin must be between 0.5 and 2 inches");
-  }
-  if (config.margins.right < 0.5 || config.margins.right > 2) {
-    throw new Error("Right margin must be between 0.5 and 2 inches");
-  }
-  if (config.margins.bottom < 0.5 || config.margins.bottom > 2) {
-    throw new Error("Bottom margin must be between 0.5 and 2 inches");
-  }
-  if (config.margins.left < 0.5 || config.margins.left > 2) {
-    throw new Error("Left margin must be between 0.5 and 2 inches");
-  }
-
-  // Validate font sizes are positive
-  if (config.typography.sizes.title <= 0) {
-    throw new Error("Title font size must be positive");
-  }
-  if (config.typography.sizes.body <= 0) {
-    throw new Error("Body font size must be positive");
   }
 
   // Validate color contrast ratios (warning only, not error)

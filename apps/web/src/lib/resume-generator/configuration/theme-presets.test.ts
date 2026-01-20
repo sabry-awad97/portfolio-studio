@@ -5,12 +5,12 @@ import {
   MINIMAL_THEME,
   THEME_PRESETS,
 } from "./theme-presets";
-import { validateConfiguration } from "./config-loader";
+import { loadExtendedConfiguration } from "./extended-config-loader";
 
 describe("Theme Presets", () => {
   describe("PROFESSIONAL_THEME", () => {
     it("should have valid configuration", () => {
-      expect(() => validateConfiguration(PROFESSIONAL_THEME)).not.toThrow();
+      expect(() => loadExtendedConfiguration(PROFESSIONAL_THEME)).not.toThrow();
     });
 
     it("should use professional template", () => {
@@ -27,7 +27,7 @@ describe("Theme Presets", () => {
 
   describe("MODERN_THEME", () => {
     it("should have valid configuration", () => {
-      expect(() => validateConfiguration(MODERN_THEME)).not.toThrow();
+      expect(() => loadExtendedConfiguration(MODERN_THEME)).not.toThrow();
     });
 
     it("should use modern template", () => {
@@ -49,7 +49,7 @@ describe("Theme Presets", () => {
 
   describe("MINIMAL_THEME", () => {
     it("should have valid configuration", () => {
-      expect(() => validateConfiguration(MINIMAL_THEME)).not.toThrow();
+      expect(() => loadExtendedConfiguration(MINIMAL_THEME)).not.toThrow();
     });
 
     it("should use professional template", () => {

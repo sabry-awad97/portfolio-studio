@@ -117,7 +117,7 @@ export function validateContrast(
 
 /**
  * Validates complete ResumeConfig structure
- * Checks all color, spacing, and structural requirements
+ * Checks all color, spacing, margin, font size, and template requirements
  *
  * @param config - Partial or complete resume configuration
  * @throws ConfigurationError if any validation fails
@@ -165,7 +165,50 @@ export function validateConfig(config: Partial<ResumeConfig>): void {
             "positive number (inches)",
           );
         }
+        // Validate margins are reasonable (between 0.5 and 2 inches)
+        if (value < 0.5 || value > 2) {
+          throw new ConfigurationError(
+            `Margin value in field 'margins.${field}' must be between 0.5 and 2 inches, got ${value}`,
+            `margins.${field}`,
+            "number between 0.5 and 2.0 (inches)",
+          );
+        }
       }
+    }
+  }
+
+  // Validate typography if present
+  if (config.typography?.sizes) {
+    if (
+      config.typography.sizes.title !== undefined &&
+      config.typography.sizes.title <= 0
+    ) {
+      throw new ConfigurationError(
+        `Title font size must be positive, got ${config.typography.sizes.title}`,
+        "typography.sizes.title",
+        "positive number (half-points)",
+      );
+    }
+    if (
+      config.typography.sizes.body !== undefined &&
+      config.typography.sizes.body <= 0
+    ) {
+      throw new ConfigurationError(
+        `Body font size must be positive, got ${config.typography.sizes.body}`,
+        "typography.sizes.body",
+        "positive number (half-points)",
+      );
+    }
+  }
+
+  // Validate template type if present
+  if (config.template) {
+    if (config.template !== "professional" && config.template !== "modern") {
+      throw new ConfigurationError(
+        `Invalid template type: ${config.template}`,
+        "template",
+        '"professional" or "modern"',
+      );
     }
   }
 }

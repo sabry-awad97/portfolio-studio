@@ -43,8 +43,6 @@ export {
   MODERN_THEME,
   MINIMAL_THEME,
   THEME_PRESETS,
-  loadConfiguration,
-  validateConfiguration,
   loadExtendedConfiguration,
   DEFAULT_SECTION_TITLES,
   DEFAULT_FORMATTING,

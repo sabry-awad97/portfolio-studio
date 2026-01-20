@@ -3,7 +3,7 @@ import { DEFAULT_CONFIG } from "./default-config";
 import { COLORS } from "../design-system/colors";
 import { TYPOGRAPHY } from "../design-system/typography";
 import { SPACING } from "../design-system/spacing";
-import { validateConfiguration } from "./config-loader";
+import { loadExtendedConfiguration } from "./extended-config-loader";
 
 describe("Default Configuration", () => {
   it("should use design system colors", () => {
@@ -31,7 +31,7 @@ describe("Default Configuration", () => {
   });
 
   it("should pass validation", () => {
-    expect(() => validateConfiguration(DEFAULT_CONFIG)).not.toThrow();
+    expect(() => loadExtendedConfiguration(DEFAULT_CONFIG)).not.toThrow();
   });
 
   it("should have all required properties", () => {
