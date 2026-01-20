@@ -24,15 +24,12 @@ export function buildProjects(
   const paragraphs: Paragraph[] = [];
 
   // Use configurable section title
-  const sectionTitle =
-    config.section_titles?.projects ?? DEFAULT_SECTION_TITLES.projects;
+  const sectionTitle = config.section_titles.projects;
   paragraphs.push(buildSectionHeader(sectionTitle, config));
 
   // Get configured separators
-  const dateSeparator =
-    config.formatting?.date_separator ?? DEFAULT_FORMATTING.date_separator;
-  const tagSeparator =
-    config.formatting?.tag_separator ?? DEFAULT_FORMATTING.tag_separator;
+  const dateSeparator = config.formatting.date_separator;
+  const tagSeparator = config.formatting.tag_separator;
 
   // Project entries
   for (const project of projects) {

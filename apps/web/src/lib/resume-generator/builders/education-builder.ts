@@ -24,13 +24,11 @@ export function buildEducation(
   const paragraphs: Paragraph[] = [];
 
   // Use configurable section title
-  const sectionTitle =
-    config.section_titles?.education ?? DEFAULT_SECTION_TITLES.education;
+  const sectionTitle = config.section_titles.education;
   paragraphs.push(buildSectionHeader(sectionTitle, config));
 
   // Get configured date separator
-  const dateSeparator =
-    config.formatting?.date_separator ?? DEFAULT_FORMATTING.date_separator;
+  const dateSeparator = config.formatting.date_separator;
 
   // Education entries
   for (const edu of education) {

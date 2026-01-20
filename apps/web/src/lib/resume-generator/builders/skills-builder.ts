@@ -18,13 +18,11 @@ export function buildSkills(
   const elements: (Paragraph | Table)[] = [];
 
   // Use configurable section title
-  const sectionTitle =
-    config.section_titles?.skills ?? DEFAULT_SECTION_TITLES.skills;
+  const sectionTitle = config.section_titles.skills;
   elements.push(buildSectionHeader(sectionTitle, config));
 
   // Get column widths from config
-  const [categoryWidth, skillsWidth] = config.table_config
-    ?.skills_column_widths ?? [25, 75];
+  const [categoryWidth, skillsWidth] = config.table_config.skills_column_widths;
 
   // Create table rows
   const rows = [];

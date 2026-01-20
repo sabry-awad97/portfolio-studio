@@ -57,6 +57,10 @@ describe("Extended Config Loader", () => {
         section_titles: {
           education: "AUSBILDUNG",
           projects: "PROJEKTE",
+          skills: DEFAULT_SECTION_TITLES.skills,
+          experience: DEFAULT_SECTION_TITLES.experience,
+          certifications: DEFAULT_SECTION_TITLES.certifications,
+          summary: DEFAULT_SECTION_TITLES.summary,
         },
       });
 
@@ -70,6 +74,7 @@ describe("Extended Config Loader", () => {
         formatting: {
           bullet_character: "→",
           date_separator: " | ",
+          tag_separator: DEFAULT_FORMATTING.tag_separator,
         },
       });
 
@@ -95,6 +100,7 @@ describe("Extended Config Loader", () => {
         page_config: {
           enable_page_numbers: true,
           page_number_format: "{PAGE}",
+          enable_page_header: DEFAULT_PAGE_CONFIG.enable_page_header,
         },
       });
 
@@ -234,21 +240,26 @@ describe("Extended Config Loader", () => {
       const result = loadExtendedConfiguration({
         section_titles: {
           education: "EDUCATION CUSTOM",
+          projects: DEFAULT_SECTION_TITLES.projects,
+          skills: DEFAULT_SECTION_TITLES.skills,
+          experience: DEFAULT_SECTION_TITLES.experience,
+          certifications: DEFAULT_SECTION_TITLES.certifications,
+          summary: DEFAULT_SECTION_TITLES.summary,
         },
       });
 
-      expect(result.section_titles?.education).toBe("EDUCATION CUSTOM");
-      expect(result.section_titles?.projects).toBe(
+      expect(result.section_titles.education).toBe("EDUCATION CUSTOM");
+      expect(result.section_titles.projects).toBe(
         DEFAULT_SECTION_TITLES.projects,
       );
-      expect(result.section_titles?.skills).toBe(DEFAULT_SECTION_TITLES.skills);
-      expect(result.section_titles?.experience).toBe(
+      expect(result.section_titles.skills).toBe(DEFAULT_SECTION_TITLES.skills);
+      expect(result.section_titles.experience).toBe(
         DEFAULT_SECTION_TITLES.experience,
       );
-      expect(result.section_titles?.certifications).toBe(
+      expect(result.section_titles.certifications).toBe(
         DEFAULT_SECTION_TITLES.certifications,
       );
-      expect(result.section_titles?.summary).toBe(
+      expect(result.section_titles.summary).toBe(
         DEFAULT_SECTION_TITLES.summary,
       );
     });
@@ -265,27 +276,37 @@ describe("Extended Config Loader", () => {
       const result = loadExtendedConfiguration({
         section_titles: {
           education: "CUSTOM EDUCATION",
+          projects: DEFAULT_SECTION_TITLES.projects,
+          skills: DEFAULT_SECTION_TITLES.skills,
+          experience: DEFAULT_SECTION_TITLES.experience,
+          certifications: DEFAULT_SECTION_TITLES.certifications,
+          summary: DEFAULT_SECTION_TITLES.summary,
         },
         formatting: {
           bullet_character: "▸",
+          date_separator: DEFAULT_FORMATTING.date_separator,
+          tag_separator: DEFAULT_FORMATTING.tag_separator,
         },
         table_config: {
           skills_column_widths: [20, 80],
         },
         page_config: {
           enable_page_numbers: true,
+          page_number_format: DEFAULT_PAGE_CONFIG.page_number_format,
+          enable_page_header: DEFAULT_PAGE_CONFIG.enable_page_header,
         },
         date_format: {
           locale: "es-ES",
+          format_pattern: DEFAULT_DATE_FORMAT.format_pattern,
         },
         document_language: "es-ES",
       });
 
-      expect(result.section_titles?.education).toBe("CUSTOM EDUCATION");
-      expect(result.formatting?.bullet_character).toBe("▸");
-      expect(result.table_config?.skills_column_widths).toEqual([20, 80]);
-      expect(result.page_config?.enable_page_numbers).toBe(true);
-      expect(result.date_format?.locale).toBe("es-ES");
+      expect(result.section_titles.education).toBe("CUSTOM EDUCATION");
+      expect(result.formatting.bullet_character).toBe("▸");
+      expect(result.table_config.skills_column_widths).toEqual([20, 80]);
+      expect(result.page_config.enable_page_numbers).toBe(true);
+      expect(result.date_format.locale).toBe("es-ES");
       expect(result.document_language).toBe("es-ES");
     });
   });
@@ -332,7 +353,7 @@ describe("Extended Config Loader", () => {
       });
 
       // Should not have warnings for text on background
-      const warnings = consoleWarnSpy.mock.calls.filter((call) =>
+      const warnings = consoleWarnSpy.mock.calls.filter((call: any[]) =>
         call[0].includes("text on background"),
       );
       expect(warnings).toHaveLength(0);
@@ -346,7 +367,7 @@ describe("Extended Config Loader", () => {
         },
       });
 
-      const warningCalls = consoleWarnSpy.mock.calls.filter((call) =>
+      const warningCalls = consoleWarnSpy.mock.calls.filter((call: any[]) =>
         call[0].includes("text on background"),
       );
       expect(warningCalls.length).toBeGreaterThan(0);
@@ -394,7 +415,7 @@ describe("Extended Config Loader", () => {
       loadExtendedConfiguration();
 
       // Default colors should have good contrast
-      const textWarnings = consoleWarnSpy.mock.calls.filter((call) =>
+      const textWarnings = consoleWarnSpy.mock.calls.filter((call: any[]) =>
         call[0].includes("text on background"),
       );
       expect(textWarnings).toHaveLength(0);

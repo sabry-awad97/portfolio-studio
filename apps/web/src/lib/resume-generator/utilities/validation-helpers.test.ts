@@ -273,9 +273,17 @@ describe("Validation Helpers", () => {
       const partialConfig = {
         colors: {
           primary: "002ad2",
+          secondary: DEFAULT_CONFIG.colors.secondary,
+          accent: DEFAULT_CONFIG.colors.accent,
+          text: DEFAULT_CONFIG.colors.text,
+          background: DEFAULT_CONFIG.colors.background,
         },
         spacing: {
           xs: 100,
+          sm: DEFAULT_CONFIG.spacing.sm,
+          md: DEFAULT_CONFIG.spacing.md,
+          lg: DEFAULT_CONFIG.spacing.lg,
+          xl: DEFAULT_CONFIG.spacing.xl,
         },
       };
 

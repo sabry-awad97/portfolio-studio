@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
 import { buildEducation } from "./education-builder";
-import { DEFAULT_CONFIG } from "../configuration/default-config";
+import { DEFAULT_EXTENDED_CONFIG } from "../configuration/extended-defaults";
 import type { Education } from "../types";
 
 describe("Education Builder", () => {
@@ -22,7 +22,7 @@ describe("Education Builder", () => {
 
   it("should create education section with header", () => {
     const education = createEducation();
-    const paragraphs = buildEducation(education, DEFAULT_CONFIG);
+    const paragraphs = buildEducation(education, DEFAULT_EXTENDED_CONFIG);
 
     expect(paragraphs).toBeDefined();
     expect(paragraphs.length).toBeGreaterThan(0);
@@ -30,7 +30,7 @@ describe("Education Builder", () => {
 
   it("should include section header", () => {
     const education = createEducation();
-    const paragraphs = buildEducation(education, DEFAULT_CONFIG);
+    const paragraphs = buildEducation(education, DEFAULT_EXTENDED_CONFIG);
 
     // Header + (title+description) * entries
     expect(paragraphs.length).toBe(1 + 2 * education.length);
@@ -38,7 +38,7 @@ describe("Education Builder", () => {
 
   it("should format each education entry correctly", () => {
     const education = createEducation();
-    const paragraphs = buildEducation(education, DEFAULT_CONFIG);
+    const paragraphs = buildEducation(education, DEFAULT_EXTENDED_CONFIG);
 
     // 1 header + 2 paragraphs per entry (title+date, description)
     expect(paragraphs.length).toBe(5);
@@ -54,13 +54,13 @@ describe("Education Builder", () => {
       },
     ];
 
-    const paragraphs = buildEducation(education, DEFAULT_CONFIG);
+    const paragraphs = buildEducation(education, DEFAULT_EXTENDED_CONFIG);
     expect(paragraphs.length).toBe(3); // Header + title+date + description
   });
 
   it("should handle empty education array", () => {
     const education: Education[] = [];
-    const paragraphs = buildEducation(education, DEFAULT_CONFIG);
+    const paragraphs = buildEducation(education, DEFAULT_EXTENDED_CONFIG);
 
     expect(paragraphs.length).toBe(1); // Just header
   });
@@ -83,7 +83,7 @@ describe("Education Builder", () => {
           (education) => {
             const paragraphs = buildEducation(
               education as Education[],
-              DEFAULT_CONFIG,
+              DEFAULT_EXTENDED_CONFIG,
             );
 
             // Should have header + 2 paragraphs per entry

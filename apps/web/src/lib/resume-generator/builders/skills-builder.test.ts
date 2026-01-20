@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
 import { buildSkills } from "./skills-builder";
-import { DEFAULT_CONFIG } from "../configuration/default-config";
+import { DEFAULT_EXTENDED_CONFIG } from "../configuration/extended-defaults";
 import type { Skills } from "../types";
 import { Table } from "docx";
 
@@ -24,7 +24,7 @@ describe("Skills Builder", () => {
 
   it("should create skills section with header and table", () => {
     const skills = createSkills();
-    const elements = buildSkills(skills, DEFAULT_CONFIG);
+    const elements = buildSkills(skills, DEFAULT_EXTENDED_CONFIG);
 
     expect(elements).toBeDefined();
     expect(elements.length).toBe(2); // Header + Table
@@ -32,14 +32,14 @@ describe("Skills Builder", () => {
 
   it("should include section header", () => {
     const skills = createSkills();
-    const elements = buildSkills(skills, DEFAULT_CONFIG);
+    const elements = buildSkills(skills, DEFAULT_EXTENDED_CONFIG);
 
     expect(elements.length).toBeGreaterThanOrEqual(1);
   });
 
   it("should create table with correct structure", () => {
     const skills = createSkills();
-    const elements = buildSkills(skills, DEFAULT_CONFIG);
+    const elements = buildSkills(skills, DEFAULT_EXTENDED_CONFIG);
 
     expect(elements.length).toBe(2);
     expect(elements[1]).toBeInstanceOf(Table);
@@ -47,7 +47,7 @@ describe("Skills Builder", () => {
 
   it("should extract skill names without icons", () => {
     const skills = createSkills();
-    const elements = buildSkills(skills, DEFAULT_CONFIG);
+    const elements = buildSkills(skills, DEFAULT_EXTENDED_CONFIG);
 
     // Table should be created
     expect(elements[1]).toBeInstanceOf(Table);
@@ -60,7 +60,7 @@ describe("Skills Builder", () => {
       tools: [],
     };
 
-    const elements = buildSkills(skills, DEFAULT_CONFIG);
+    const elements = buildSkills(skills, DEFAULT_EXTENDED_CONFIG);
     expect(elements.length).toBe(1); // Just header, no table
   });
 
@@ -71,7 +71,7 @@ describe("Skills Builder", () => {
       tools: [{ name: "Git" }],
     };
 
-    const elements = buildSkills(skills, DEFAULT_CONFIG);
+    const elements = buildSkills(skills, DEFAULT_EXTENDED_CONFIG);
     expect(elements.length).toBe(2);
   });
 
@@ -105,7 +105,7 @@ describe("Skills Builder", () => {
             ),
           }),
           (skills) => {
-            const elements = buildSkills(skills as Skills, DEFAULT_CONFIG);
+            const elements = buildSkills(skills as Skills, DEFAULT_EXTENDED_CONFIG);
 
             // Convert to JSON to inspect content
             const json = JSON.stringify(elements);
@@ -147,7 +147,7 @@ describe("Skills Builder", () => {
             ),
           }),
           (skills) => {
-            const elements = buildSkills(skills as Skills, DEFAULT_CONFIG);
+            const elements = buildSkills(skills as Skills, DEFAULT_EXTENDED_CONFIG);
 
             // Should have header + table (since we ensure at least one skill)
             if (elements.length !== 2) return false;
@@ -174,7 +174,7 @@ describe("Skills Builder", () => {
     it("should include all skill categories", () => {
       // Feature: resume-generator-refactor, Property 11: All resume sections include required fields
       const skills = createSkills();
-      const elements = buildSkills(skills, DEFAULT_CONFIG);
+      const elements = buildSkills(skills, DEFAULT_EXTENDED_CONFIG);
 
       // Should have header + table
       expect(elements.length).toBe(2);

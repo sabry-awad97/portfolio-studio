@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
 import { buildHeader } from "./header-builder";
-import { DEFAULT_CONFIG } from "../configuration/default-config";
+import { DEFAULT_EXTENDED_CONFIG } from "../configuration/extended-defaults";
 import type { PersonalInfo } from "../types";
 
 describe("Header Builder", () => {
@@ -21,7 +21,7 @@ describe("Header Builder", () => {
   describe("Basic functionality", () => {
     it("should create header paragraphs", () => {
       const personalInfo = createValidPersonalInfo();
-      const paragraphs = buildHeader(personalInfo, DEFAULT_CONFIG);
+      const paragraphs = buildHeader(personalInfo, DEFAULT_EXTENDED_CONFIG);
 
       expect(paragraphs).toBeDefined();
       expect(paragraphs.length).toBeGreaterThan(0);
@@ -29,21 +29,21 @@ describe("Header Builder", () => {
 
     it("should include name paragraph", () => {
       const personalInfo = createValidPersonalInfo();
-      const paragraphs = buildHeader(personalInfo, DEFAULT_CONFIG);
+      const paragraphs = buildHeader(personalInfo, DEFAULT_EXTENDED_CONFIG);
 
       expect(paragraphs.length).toBeGreaterThanOrEqual(3);
     });
 
     it("should include title and subtitle", () => {
       const personalInfo = createValidPersonalInfo();
-      const paragraphs = buildHeader(personalInfo, DEFAULT_CONFIG);
+      const paragraphs = buildHeader(personalInfo, DEFAULT_EXTENDED_CONFIG);
 
       expect(paragraphs.length).toBeGreaterThanOrEqual(3);
     });
 
     it("should include contact information", () => {
       const personalInfo = createValidPersonalInfo();
-      const paragraphs = buildHeader(personalInfo, DEFAULT_CONFIG);
+      const paragraphs = buildHeader(personalInfo, DEFAULT_EXTENDED_CONFIG);
 
       expect(paragraphs.length).toBe(3);
     });
@@ -52,7 +52,7 @@ describe("Header Builder", () => {
   describe("Contact information handling", () => {
     it("should handle all contact fields", () => {
       const personalInfo = createValidPersonalInfo();
-      const paragraphs = buildHeader(personalInfo, DEFAULT_CONFIG);
+      const paragraphs = buildHeader(personalInfo, DEFAULT_EXTENDED_CONFIG);
 
       expect(paragraphs.length).toBe(3);
     });
@@ -68,7 +68,7 @@ describe("Header Builder", () => {
         },
       };
 
-      const paragraphs = buildHeader(personalInfo, DEFAULT_CONFIG);
+      const paragraphs = buildHeader(personalInfo, DEFAULT_EXTENDED_CONFIG);
       expect(paragraphs.length).toBe(3);
     });
 
@@ -83,7 +83,7 @@ describe("Header Builder", () => {
         },
       };
 
-      const paragraphs = buildHeader(personalInfo, DEFAULT_CONFIG);
+      const paragraphs = buildHeader(personalInfo, DEFAULT_EXTENDED_CONFIG);
       expect(paragraphs.length).toBe(3);
     });
 
@@ -98,7 +98,7 @@ describe("Header Builder", () => {
         },
       };
 
-      const paragraphs = buildHeader(personalInfo, DEFAULT_CONFIG);
+      const paragraphs = buildHeader(personalInfo, DEFAULT_EXTENDED_CONFIG);
       expect(paragraphs.length).toBe(3);
     });
   });
@@ -124,7 +124,7 @@ describe("Header Builder", () => {
           (personalInfo) => {
             const paragraphs = buildHeader(
               personalInfo as PersonalInfo,
-              DEFAULT_CONFIG,
+              DEFAULT_EXTENDED_CONFIG,
             );
 
             // Convert paragraphs to JSON to inspect content
@@ -163,7 +163,7 @@ describe("Header Builder", () => {
           (personalInfo) => {
             const paragraphs = buildHeader(
               personalInfo as PersonalInfo,
-              DEFAULT_CONFIG,
+              DEFAULT_EXTENDED_CONFIG,
             );
 
             // Should have 3 paragraphs: name, title/subtitle, contact

@@ -4,7 +4,9 @@ import type {
   TableConfig,
   PageConfig,
   DateFormatConfig,
+  ExtendedResumeConfig,
 } from "./extended-config-types";
+import { DEFAULT_CONFIG } from "./default-config";
 
 /**
  * Default English section titles
@@ -55,3 +57,17 @@ export const DEFAULT_DATE_FORMAT: DateFormatConfig = {
  * Default document language
  */
 export const DEFAULT_DOCUMENT_LANGUAGE = "en-US";
+
+/**
+ * Complete default extended configuration
+ * Combines base config with extended properties
+ */
+export const DEFAULT_EXTENDED_CONFIG: ExtendedResumeConfig = {
+  ...DEFAULT_CONFIG,
+  section_titles: DEFAULT_SECTION_TITLES,
+  document_language: DEFAULT_DOCUMENT_LANGUAGE,
+  formatting: DEFAULT_FORMATTING,
+  table_config: DEFAULT_TABLE_CONFIG,
+  page_config: DEFAULT_PAGE_CONFIG,
+  date_format: DEFAULT_DATE_FORMAT,
+};

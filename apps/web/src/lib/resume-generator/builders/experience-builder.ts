@@ -24,13 +24,11 @@ export function buildExperience(
   const paragraphs: Paragraph[] = [];
 
   // Use configurable section title
-  const sectionTitle =
-    config.section_titles?.experience ?? DEFAULT_SECTION_TITLES.experience;
+  const sectionTitle = config.section_titles.experience;
   paragraphs.push(buildSectionHeader(sectionTitle, config));
 
   // Get configured bullet character
-  const bulletChar =
-    config.formatting?.bullet_character ?? DEFAULT_FORMATTING.bullet_character;
+  const bulletChar = config.formatting.bullet_character;
 
   // Experience entries
   for (const exp of experience) {

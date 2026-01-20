@@ -50,10 +50,10 @@ export interface DateFormatConfig {
  * Extends base ResumeConfig with internationalization, formatting, and page control options
  */
 export interface ExtendedResumeConfig extends ResumeConfig {
-  section_titles?: SectionTitles;
-  document_language?: string;
-  formatting?: FormattingOptions;
-  table_config?: TableConfig;
-  page_config?: PageConfig;
-  date_format?: DateFormatConfig;
+  section_titles: SectionTitles;
+  document_language: string;
+  formatting: FormattingOptions;
+  table_config: TableConfig;
+  page_config: PageConfig;
+  date_format: DateFormatConfig;
 }

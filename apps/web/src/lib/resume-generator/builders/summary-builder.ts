@@ -19,8 +19,7 @@ export function buildSummary(
   const paragraphs: Paragraph[] = [];
 
   // Use configurable section title
-  const sectionTitle =
-    config.section_titles?.summary ?? DEFAULT_SECTION_TITLES.summary;
+  const sectionTitle = config.section_titles.summary;
   paragraphs.push(buildSectionHeader(sectionTitle, config));
 
   // Bio text

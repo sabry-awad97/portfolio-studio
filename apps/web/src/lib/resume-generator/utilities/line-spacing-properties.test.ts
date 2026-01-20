@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import fc from "fast-check";
 import { applyLineSpacing } from "./line-spacing";
 import type { ResumeConfig } from "../configuration/config-types";
-import { COLORS } from "../design-system/colors";
+import { PROFESSIONAL_THEME } from "../configuration/theme-presets";
 import { SPACING } from "../design-system/spacing";
 
 /**
@@ -26,7 +26,7 @@ describe("Line Spacing Properties", () => {
         fc.float({ min: 1.0, max: 3.0, noNaN: true }),
         (bodyLineSpacing) => {
           const config: ResumeConfig = {
-            colors: COLORS.professional,
+            colors: PROFESSIONAL_THEME.colors,
             typography: {
               sizes: {
                 title: 32,
@@ -84,7 +84,7 @@ describe("Line Spacing Properties", () => {
         fc.float({ min: 1.0, max: 3.0, noNaN: true }),
         (headingLineSpacing) => {
           const config: ResumeConfig = {
-            colors: COLORS.professional,
+            colors: PROFESSIONAL_THEME.colors,
             typography: {
               sizes: {
                 title: 32,
@@ -142,7 +142,7 @@ describe("Line Spacing Properties", () => {
         fc.float({ min: 1.0, max: 3.0, noNaN: true }),
         (titleLineSpacing) => {
           const config: ResumeConfig = {
-            colors: COLORS.professional,
+            colors: PROFESSIONAL_THEME.colors,
             typography: {
               sizes: {
                 title: 32,

@@ -1,12 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { applyLineSpacing } from "./line-spacing";
 import type { ResumeConfig } from "../configuration/config-types";
-import { COLORS } from "../design-system/colors";
+import { PROFESSIONAL_THEME } from "../configuration/theme-presets";
 import { TYPOGRAPHY } from "../design-system/typography";
 import { SPACING } from "../design-system/spacing";
 
 const mockConfig: ResumeConfig = {
-  colors: COLORS.professional,
+  colors: PROFESSIONAL_THEME.colors,
   typography: {
     sizes: TYPOGRAPHY.sizes,
     fonts: TYPOGRAPHY.fonts,

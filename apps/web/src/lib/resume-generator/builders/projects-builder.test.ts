@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
 import { buildProjects } from "./projects-builder";
-import { DEFAULT_CONFIG } from "../configuration/default-config";
+import { DEFAULT_EXTENDED_CONFIG } from "../configuration/extended-defaults";
 import type { Project } from "../types";
 
 describe("Projects Builder", () => {
@@ -24,7 +24,7 @@ describe("Projects Builder", () => {
 
   it("should create projects section with header", () => {
     const projects = createProjects();
-    const paragraphs = buildProjects(projects, DEFAULT_CONFIG);
+    const paragraphs = buildProjects(projects, DEFAULT_EXTENDED_CONFIG);
 
     expect(paragraphs).toBeDefined();
     expect(paragraphs.length).toBeGreaterThan(0);
@@ -32,7 +32,7 @@ describe("Projects Builder", () => {
 
   it("should include section header", () => {
     const projects = createProjects();
-    const paragraphs = buildProjects(projects, DEFAULT_CONFIG);
+    const paragraphs = buildProjects(projects, DEFAULT_EXTENDED_CONFIG);
 
     // Header + (title+date, description, technologies) * entries
     expect(paragraphs.length).toBe(1 + 3 * projects.length);
@@ -40,7 +40,7 @@ describe("Projects Builder", () => {
 
   it("should format each project entry correctly", () => {
     const projects = createProjects();
-    const paragraphs = buildProjects(projects, DEFAULT_CONFIG);
+    const paragraphs = buildProjects(projects, DEFAULT_EXTENDED_CONFIG);
 
     // 1 header + 3 paragraphs per entry (title+date, description, technologies)
     expect(paragraphs.length).toBe(7);
@@ -57,7 +57,7 @@ describe("Projects Builder", () => {
       },
     ];
 
-    const paragraphs = buildProjects(projects, DEFAULT_CONFIG);
+    const paragraphs = buildProjects(projects, DEFAULT_EXTENDED_CONFIG);
     // Header + title+date + description (no technologies paragraph)
     expect(paragraphs.length).toBe(3);
   });
@@ -73,13 +73,13 @@ describe("Projects Builder", () => {
       },
     ];
 
-    const paragraphs = buildProjects(projects, DEFAULT_CONFIG);
+    const paragraphs = buildProjects(projects, DEFAULT_EXTENDED_CONFIG);
     expect(paragraphs.length).toBe(4); // Header + title + description + technologies
   });
 
   it("should handle empty projects array", () => {
     const projects: Project[] = [];
-    const paragraphs = buildProjects(projects, DEFAULT_CONFIG);
+    const paragraphs = buildProjects(projects, DEFAULT_EXTENDED_CONFIG);
 
     expect(paragraphs.length).toBe(1); // Just header
   });
@@ -106,7 +106,7 @@ describe("Projects Builder", () => {
           (projects) => {
             const paragraphs = buildProjects(
               projects as Project[],
-              DEFAULT_CONFIG,
+              DEFAULT_EXTENDED_CONFIG,
             );
 
             // Should have header + 3 paragraphs per entry (title+date, description, technologies)

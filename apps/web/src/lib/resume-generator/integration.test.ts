@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { generateResume } from "./generator";
 import { personalInfo, education, projects, skills } from "../data";
+import { DEFAULT_CONFIG } from "./configuration/default-config";
 import type { ResumeData } from "./types";
 
 // Mock file-saver
@@ -193,6 +194,10 @@ describe("Integration Tests", () => {
       const partialConfig = {
         colors: {
           primary: "0066cc",
+          secondary: DEFAULT_CONFIG.colors.secondary,
+          accent: DEFAULT_CONFIG.colors.accent,
+          text: DEFAULT_CONFIG.colors.text,
+          background: DEFAULT_CONFIG.colors.background,
         },
       };
 
@@ -301,7 +306,7 @@ describe("Integration Tests", () => {
 
       const config = {
         table_config: {
-          skills_column_widths: [30, 70],
+          skills_column_widths: [30, 70] as [number, number],
         },
       };
 
@@ -321,7 +326,6 @@ describe("Integration Tests", () => {
           enable_page_numbers: true,
           enable_page_header: true,
           page_number_format: "Page {PAGE} of {NUMPAGES}",
-          page_header_text: "{name}",
         },
       };
 
@@ -388,13 +392,12 @@ describe("Integration Tests", () => {
           tag_separator: " | ",
         },
         table_config: {
-          skills_column_widths: [35, 65],
+          skills_column_widths: [35, 65] as [number, number],
         },
         page_config: {
           enable_page_numbers: true,
           enable_page_header: true,
           page_number_format: "Seite {PAGE}",
-          page_header_text: "{name}",
         },
         date_format: {
           locale: "de-DE",

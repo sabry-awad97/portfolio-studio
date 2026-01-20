@@ -23,6 +23,7 @@ export {
   DEFAULT_PAGE_CONFIG,
   DEFAULT_DATE_FORMAT,
   DEFAULT_DOCUMENT_LANGUAGE,
+  DEFAULT_EXTENDED_CONFIG,
 } from "./extended-defaults";
 export { loadExtendedConfiguration } from "./extended-config-loader";
 export type {

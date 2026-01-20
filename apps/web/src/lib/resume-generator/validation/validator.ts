@@ -241,13 +241,13 @@ export function sanitizeResumeData(data: ResumeData): ResumeData {
         email: sanitizeText(data.personalInfo.contact.email),
         phone: data.personalInfo.contact.phone
           ? sanitizeText(data.personalInfo.contact.phone)
-          : undefined,
+          : "",
         linkedin: data.personalInfo.contact.linkedin
           ? sanitizeText(data.personalInfo.contact.linkedin)
-          : undefined,
+          : "",
         github: data.personalInfo.contact.github
           ? sanitizeText(data.personalInfo.contact.github)
-          : undefined,
+          : "",
         twitter: data.personalInfo.contact.twitter
           ? sanitizeText(data.personalInfo.contact.twitter)
           : undefined,
@@ -266,22 +266,20 @@ export function sanitizeResumeData(data: ResumeData): ResumeData {
       description: sanitizeText(project.description),
       tags: project.tags?.map(sanitizeText),
     })),
-    skills: data.skills
-      ? {
-          languages: data.skills.languages?.map((skill) => ({
-            ...skill,
-            name: sanitizeText(skill.name),
-          })),
-          frameworks: data.skills.frameworks?.map((skill) => ({
-            ...skill,
-            name: sanitizeText(skill.name),
-          })),
-          tools: data.skills.tools?.map((skill) => ({
-            ...skill,
-            name: sanitizeText(skill.name),
-          })),
-        }
-      : undefined,
+    skills: {
+      languages: data.skills.languages?.map((skill) => ({
+        ...skill,
+        name: sanitizeText(skill.name),
+      })),
+      frameworks: data.skills.frameworks?.map((skill) => ({
+        ...skill,
+        name: sanitizeText(skill.name),
+      })),
+      tools: data.skills.tools?.map((skill) => ({
+        ...skill,
+        name: sanitizeText(skill.name),
+      })),
+    },
     experience: data.experience?.map((exp) => ({
       ...exp,
       company: sanitizeText(exp.company),

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { buildExperience } from "./experience-builder";
-import { DEFAULT_CONFIG } from "../configuration/default-config";
+import { DEFAULT_EXTENDED_CONFIG } from "../configuration/extended-defaults";
 import type { WorkExperience } from "../types";
 
 describe("Experience Builder", () => {
@@ -21,7 +21,7 @@ describe("Experience Builder", () => {
 
   it("should create experience section with header", () => {
     const experience = createExperience();
-    const paragraphs = buildExperience(experience, DEFAULT_CONFIG);
+    const paragraphs = buildExperience(experience, DEFAULT_EXTENDED_CONFIG);
 
     expect(paragraphs).toBeDefined();
     expect(paragraphs.length).toBeGreaterThan(0);
@@ -29,7 +29,7 @@ describe("Experience Builder", () => {
 
   it("should format responsibilities as bullet points", () => {
     const experience = createExperience();
-    const paragraphs = buildExperience(experience, DEFAULT_CONFIG);
+    const paragraphs = buildExperience(experience, DEFAULT_EXTENDED_CONFIG);
 
     // Header + company/role + date + responsibilities
     expect(paragraphs.length).toBeGreaterThan(3);
@@ -37,7 +37,7 @@ describe("Experience Builder", () => {
 
   it("should handle empty experience array", () => {
     const experience: WorkExperience[] = [];
-    const paragraphs = buildExperience(experience, DEFAULT_CONFIG);
+    const paragraphs = buildExperience(experience, DEFAULT_EXTENDED_CONFIG);
 
     expect(paragraphs.length).toBe(1); // Just header
   });

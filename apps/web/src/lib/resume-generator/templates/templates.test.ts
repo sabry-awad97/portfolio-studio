@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { ProfessionalTemplate } from "./professional-template";
 import { ModernTemplate } from "./modern-template";
-import { DEFAULT_CONFIG } from "../configuration/default-config";
+import { DEFAULT_EXTENDED_CONFIG } from "../configuration/extended-defaults";
 import type { ResumeData } from "../types";
 
 describe("Templates", () => {
@@ -52,7 +52,7 @@ describe("Templates", () => {
     it("should build document with valid data", () => {
       const template = new ProfessionalTemplate();
       const data = createValidResumeData();
-      const doc = template.buildDocument(data, DEFAULT_CONFIG);
+      const doc = template.buildDocument(data, DEFAULT_EXTENDED_CONFIG);
 
       expect(doc).toBeDefined();
     });
@@ -65,7 +65,7 @@ describe("Templates", () => {
         certifications: undefined,
       };
 
-      const doc = template.buildDocument(data, DEFAULT_CONFIG);
+      const doc = template.buildDocument(data, DEFAULT_EXTENDED_CONFIG);
       expect(doc).toBeDefined();
     });
 
@@ -93,7 +93,7 @@ describe("Templates", () => {
         ],
       };
 
-      const doc = template.buildDocument(data, DEFAULT_CONFIG);
+      const doc = template.buildDocument(data, DEFAULT_EXTENDED_CONFIG);
       expect(doc).toBeDefined();
     });
   });
@@ -108,7 +108,7 @@ describe("Templates", () => {
     it("should build document with valid data", () => {
       const template = new ModernTemplate();
       const data = createValidResumeData();
-      const doc = template.buildDocument(data, DEFAULT_CONFIG);
+      const doc = template.buildDocument(data, DEFAULT_EXTENDED_CONFIG);
 
       expect(doc).toBeDefined();
     });
@@ -121,7 +121,7 @@ describe("Templates", () => {
         certifications: undefined,
       };
 
-      const doc = template.buildDocument(data, DEFAULT_CONFIG);
+      const doc = template.buildDocument(data, DEFAULT_EXTENDED_CONFIG);
       expect(doc).toBeDefined();
     });
   });
@@ -134,9 +134,12 @@ describe("Templates", () => {
 
       const professionalDoc = professionalTemplate.buildDocument(
         data,
-        DEFAULT_CONFIG,
+        DEFAULT_EXTENDED_CONFIG,
       );
-      const modernDoc = modernTemplate.buildDocument(data, DEFAULT_CONFIG);
+      const modernDoc = modernTemplate.buildDocument(
+        data,
+        DEFAULT_EXTENDED_CONFIG,
+      );
 
       // Convert to JSON to compare structure
       const professionalJson = JSON.stringify(professionalDoc);
@@ -151,7 +154,7 @@ describe("Templates", () => {
     it("should not include page numbers by default", () => {
       const template = new ProfessionalTemplate();
       const data = createValidResumeData();
-      const doc = template.buildDocument(data, DEFAULT_CONFIG);
+      const doc = template.buildDocument(data, DEFAULT_EXTENDED_CONFIG);
 
       // Convert to JSON to inspect structure
       const docJson = JSON.stringify(doc);
@@ -164,7 +167,7 @@ describe("Templates", () => {
       const template = new ProfessionalTemplate();
       const data = createValidResumeData();
       const config = {
-        ...DEFAULT_CONFIG,
+        ...DEFAULT_EXTENDED_CONFIG,
         page_config: {
           enable_page_numbers: true,
           page_number_format: "Page {PAGE} of {NUMPAGES}",
@@ -189,7 +192,7 @@ describe("Templates", () => {
     it("should not include page header by default", () => {
       const template = new ProfessionalTemplate();
       const data = createValidResumeData();
-      const doc = template.buildDocument(data, DEFAULT_CONFIG);
+      const doc = template.buildDocument(data, DEFAULT_EXTENDED_CONFIG);
 
       // Convert to JSON to inspect structure
       const docJson = JSON.stringify(doc);
@@ -202,7 +205,7 @@ describe("Templates", () => {
       const template = new ProfessionalTemplate();
       const data = createValidResumeData();
       const config = {
-        ...DEFAULT_CONFIG,
+        ...DEFAULT_EXTENDED_CONFIG,
         page_config: {
           enable_page_numbers: false,
           page_number_format: "Page {PAGE} of {NUMPAGES}",
@@ -224,7 +227,7 @@ describe("Templates", () => {
       const template = new ProfessionalTemplate();
       const data = createValidResumeData();
       const config = {
-        ...DEFAULT_CONFIG,
+        ...DEFAULT_EXTENDED_CONFIG,
         page_config: {
           enable_page_numbers: true,
           page_number_format: "Page {PAGE} of {NUMPAGES}",
@@ -248,7 +251,7 @@ describe("Templates", () => {
       const template = new ModernTemplate();
       const data = createValidResumeData();
       const config = {
-        ...DEFAULT_CONFIG,
+        ...DEFAULT_EXTENDED_CONFIG,
         page_config: {
           enable_page_numbers: true,
           page_number_format: "Page {PAGE} of {NUMPAGES}",
@@ -273,14 +276,16 @@ describe("Templates", () => {
 
       // Should not throw when building document with default config
       // Note: docx library doesn't support setting document language directly
-      expect(() => template.buildDocument(data, DEFAULT_CONFIG)).not.toThrow();
+      expect(() =>
+        template.buildDocument(data, DEFAULT_EXTENDED_CONFIG),
+      ).not.toThrow();
     });
 
     it("should accept document_language in config", () => {
       const template = new ProfessionalTemplate();
       const data = createValidResumeData();
       const config = {
-        ...DEFAULT_CONFIG,
+        ...DEFAULT_EXTENDED_CONFIG,
         document_language: "fr-FR",
       };
 
@@ -295,7 +300,7 @@ describe("Templates", () => {
 
       languages.forEach((lang) => {
         const config = {
-          ...DEFAULT_CONFIG,
+          ...DEFAULT_EXTENDED_CONFIG,
           document_language: lang,
         };
 
@@ -308,7 +313,7 @@ describe("Templates", () => {
       const template = new ModernTemplate();
       const data = createValidResumeData();
       const config = {
-        ...DEFAULT_CONFIG,
+        ...DEFAULT_EXTENDED_CONFIG,
         document_language: "it-IT",
       };
 

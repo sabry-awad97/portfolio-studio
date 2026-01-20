@@ -24,14 +24,11 @@ export function buildCertifications(
   const paragraphs: Paragraph[] = [];
 
   // Use configurable section title
-  const sectionTitle =
-    config.section_titles?.certifications ??
-    DEFAULT_SECTION_TITLES.certifications;
+  const sectionTitle = config.section_titles.certifications;
   paragraphs.push(buildSectionHeader(sectionTitle, config));
 
   // Get configured date separator
-  const dateSeparator =
-    config.formatting?.date_separator ?? DEFAULT_FORMATTING.date_separator;
+  const dateSeparator = config.formatting.date_separator;
 
   // Certification entries
   for (const cert of certifications) {

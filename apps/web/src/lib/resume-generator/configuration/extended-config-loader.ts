@@ -39,7 +39,11 @@ export function loadExtendedConfiguration(
 
     // Validate column widths if provided
     if (customConfig.table_config?.skills_column_widths) {
-      validateColumnWidths(customConfig.table_config.skills_column_widths);
+      const widths = customConfig.table_config.skills_column_widths;
+      // Ensure it's a proper tuple before validation
+      if (Array.isArray(widths) && widths.length === 2) {
+        validateColumnWidths(widths as [number, number]);
+      }
     }
   }
 
@@ -91,8 +95,14 @@ export function loadExtendedConfiguration(
       ...customConfig?.formatting,
     },
     table_config: {
-      ...DEFAULT_TABLE_CONFIG,
-      ...customConfig?.table_config,
+      skills_column_widths: customConfig?.table_config?.skills_column_widths
+        ? ([
+            customConfig.table_config.skills_column_widths[0] ??
+              DEFAULT_TABLE_CONFIG.skills_column_widths[0],
+            customConfig.table_config.skills_column_widths[1] ??
+              DEFAULT_TABLE_CONFIG.skills_column_widths[1],
+          ] as [number, number])
+        : DEFAULT_TABLE_CONFIG.skills_column_widths,
     },
     page_config: {
       ...DEFAULT_PAGE_CONFIG,
