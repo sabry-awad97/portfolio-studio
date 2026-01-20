@@ -29,7 +29,7 @@ export function DownloadResumeButton({
       // Show loading toast with detailed hint
       const loadingToast = toast.loading("Generating your resume...", {
         description:
-          "Dynamically creating a professional Word document (DOCX) with your latest information",
+          "Dynamically creating a professional Word document using the docx library",
         duration: Infinity,
       });
 
