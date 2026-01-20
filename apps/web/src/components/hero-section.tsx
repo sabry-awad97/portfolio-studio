@@ -25,22 +25,60 @@ export function HeroSection() {
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
 
   const contactItems = [
-    { icon: Mail, label: "Email", value: personalInfo.contact.email },
-    { icon: Phone, label: "Phone", value: personalInfo.contact.phone },
-    { icon: Github, label: "Github", value: personalInfo.contact.github },
-    { icon: Linkedin, label: "Linkedin", value: personalInfo.contact.linkedin },
-    { icon: Twitter, label: "Twitter", value: personalInfo.contact.twitter },
+    {
+      icon: Mail,
+      label: "Email",
+      value: personalInfo.contact.email,
+      url: `mailto:${personalInfo.contact.email}`,
+      copyValue: personalInfo.contact.email,
+    },
+    {
+      icon: Phone,
+      label: "Phone",
+      value: personalInfo.contact.phone,
+      url: `tel:${personalInfo.contact.phone}`,
+      copyValue: personalInfo.contact.phone,
+    },
+    {
+      icon: Github,
+      label: "Github",
+      value: personalInfo.contact.github,
+      url: `https://github.com/${personalInfo.contact.github}`,
+      copyValue: `https://github.com/${personalInfo.contact.github}`,
+    },
+    {
+      icon: Linkedin,
+      label: "Linkedin",
+      value: personalInfo.contact.linkedin,
+      url: `https://linkedin.com/in/${personalInfo.contact.linkedin}`,
+      copyValue: `https://linkedin.com/in/${personalInfo.contact.linkedin}`,
+    },
+    {
+      icon: Twitter,
+      label: "Twitter",
+      value: personalInfo.contact.twitter,
+      url: `https://twitter.com/${personalInfo.contact.twitter}`,
+      copyValue: `https://twitter.com/${personalInfo.contact.twitter}`,
+    },
   ];
 
-  const handleCopy = async (value: string, label: string) => {
+  const handleCopyAndOpen = async (
+    copyValue: string,
+    url: string,
+    label: string,
+  ) => {
     try {
-      await navigator.clipboard.writeText(value);
-      setCopiedValue(value);
+      // Copy to clipboard
+      await navigator.clipboard.writeText(copyValue);
+      setCopiedValue(copyValue);
       toast.success(`${label} copied!`, {
-        description: value,
+        description: copyValue,
         duration: 2000,
       });
       setTimeout(() => setCopiedValue(null), 2000);
+
+      // Open in new tab
+      window.open(url, "_blank", "noopener,noreferrer");
     } catch (error) {
       toast.error("Failed to copy", {
         description: "Please try again",
@@ -134,7 +172,9 @@ export function HeroSection() {
                     {item.label}
                   </p>
                   <button
-                    onClick={() => handleCopy(item.value, item.label)}
+                    onClick={() =>
+                      handleCopyAndOpen(item.copyValue, item.url, item.label)
+                    }
                     className={cn(
                       typographyVariants({
                         variant: "body",
@@ -142,7 +182,7 @@ export function HeroSection() {
                       }),
                       "text-gray-800 truncate block w-full text-left hover:text-primary transition-colors cursor-pointer",
                     )}
-                    title={`Click to copy: ${item.value}`}
+                    title={`Click to copy and open: ${item.value}`}
                   >
                     {item.value}
                   </button>
