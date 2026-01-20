@@ -1,7 +1,15 @@
-import { Paragraph, TextRun } from "docx";
+import { Paragraph } from "docx";
 import type { WorkExperience } from "../types";
-import type { ResumeConfig } from "../configuration/config-types";
+import type { ExtendedResumeConfig } from "../configuration/extended-config-types";
+import {
+  DEFAULT_SECTION_TITLES,
+  DEFAULT_FORMATTING,
+} from "../configuration/extended-defaults";
 import { buildSectionHeader } from "./section-header-builder";
+import { createTextRun } from "../utilities/text-run-factory";
+import { createParagraphSpacing } from "../utilities/spacing-patterns";
+import { formatDate } from "../utilities/date-formatter";
+import { applyLineSpacing } from "../utilities/line-spacing";
 
 /**
  * Builds the work experience section
@@ -11,30 +19,46 @@ import { buildSectionHeader } from "./section-header-builder";
  */
 export function buildExperience(
   experience: WorkExperience[],
-  config: ResumeConfig,
+  config: ExtendedResumeConfig,
 ): Paragraph[] {
   const paragraphs: Paragraph[] = [];
 
-  // Section header
-  paragraphs.push(buildSectionHeader("WORK EXPERIENCE", config));
+  // Use configurable section title
+  const sectionTitle =
+    config.section_titles?.experience ?? DEFAULT_SECTION_TITLES.experience;
+  paragraphs.push(buildSectionHeader(sectionTitle, config));
+
+  // Get configured bullet character
+  const bulletChar =
+    config.formatting?.bullet_character ?? DEFAULT_FORMATTING.bullet_character;
 
   // Experience entries
   for (const exp of experience) {
+    // Format dates if date formatting is configured
+    const formattedStartDate = config.date_format
+      ? formatDate(exp.startDate, config.date_format)
+      : exp.startDate;
+    const formattedEndDate = config.date_format
+      ? formatDate(exp.endDate, config.date_format)
+      : exp.endDate;
+
     // Company and role
     paragraphs.push(
       new Paragraph({
         spacing: {
-          before: config.spacing.sm,
-          after: config.spacing.xs,
+          ...createParagraphSpacing("entryTitle", config),
+          ...applyLineSpacing("body", config),
         },
         children: [
-          new TextRun({
-            text: `${exp.role} at ${exp.company}`,
-            bold: true,
-            size: config.typography.sizes.heading2,
-            color: config.colors.text,
-            font: config.typography.fonts.primary,
-          }),
+          createTextRun(
+            {
+              text: `${exp.role} at ${exp.company}`,
+              bold: true,
+              size: config.typography.sizes.heading2,
+              color: config.colors.text,
+            },
+            config,
+          ),
         ],
       }),
     );
@@ -42,15 +66,20 @@ export function buildExperience(
     // Date range
     paragraphs.push(
       new Paragraph({
-        spacing: { after: config.spacing.xs },
+        spacing: {
+          ...createParagraphSpacing("entryDescription", config),
+          ...applyLineSpacing("body", config),
+        },
         children: [
-          new TextRun({
-            text: `${exp.startDate} - ${exp.endDate}`,
-            size: config.typography.sizes.body,
-            color: config.colors.secondary,
-            italics: true,
-            font: config.typography.fonts.primary,
-          }),
+          createTextRun(
+            {
+              text: `${formattedStartDate} - ${formattedEndDate}`,
+              size: config.typography.sizes.body,
+              color: config.colors.secondary,
+              italics: true,
+            },
+            config,
+          ),
         ],
       }),
     );
@@ -62,17 +91,24 @@ export function buildExperience(
 
       paragraphs.push(
         new Paragraph({
-          spacing: { after: isLast ? config.spacing.sm : config.spacing.xs },
+          spacing: {
+            ...(isLast
+              ? createParagraphSpacing("entryContent", config)
+              : createParagraphSpacing("entryDescription", config)),
+            ...applyLineSpacing("body", config),
+          },
           bullet: {
             level: 0,
           },
           children: [
-            new TextRun({
-              text: responsibility,
-              size: config.typography.sizes.body,
-              color: config.colors.text,
-              font: config.typography.fonts.primary,
-            }),
+            createTextRun(
+              {
+                text: responsibility,
+                size: config.typography.sizes.body,
+                color: config.colors.text,
+              },
+              config,
+            ),
           ],
         }),
       );

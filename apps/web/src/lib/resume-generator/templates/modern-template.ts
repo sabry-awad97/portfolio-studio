@@ -1,6 +1,17 @@
-import { Document, Paragraph, Table, convertInchesToTwip } from "docx";
+import {
+  Document,
+  Paragraph,
+  Table,
+  convertInchesToTwip,
+  AlignmentType,
+  Header,
+  Footer,
+  TextRun,
+  PageNumber,
+} from "docx";
 import type { ResumeData } from "../types";
-import type { ResumeConfig, TemplateType } from "../configuration/config-types";
+import type { ExtendedResumeConfig } from "../configuration/extended-config-types";
+import type { TemplateType } from "../configuration/config-types";
 import type { Template } from "./template-interface";
 import {
   buildHeader,
@@ -11,6 +22,10 @@ import {
   buildExperience,
   buildCertifications,
 } from "../builders";
+import {
+  DEFAULT_PAGE_CONFIG,
+  DEFAULT_DOCUMENT_LANGUAGE,
+} from "../configuration/extended-defaults";
 
 /**
  * Modern template with alternative section ordering
@@ -18,7 +33,7 @@ import {
 export class ModernTemplate implements Template {
   name: TemplateType = "modern";
 
-  buildDocument(data: ResumeData, config: ResumeConfig): Document {
+  buildDocument(data: ResumeData, config: ExtendedResumeConfig): Document {
     const children: (Paragraph | Table)[] = [];
 
     // Header section
@@ -54,6 +69,74 @@ export class ModernTemplate implements Template {
       children.push(...buildCertifications(data.certifications, config));
     }
 
+    // Get page config with defaults
+    const pageConfig = config.page_config ?? DEFAULT_PAGE_CONFIG;
+
+    // Build section properties
+    const sectionProperties: any = {
+      page: {
+        margin: {
+          top: convertInchesToTwip(config.margins.top),
+          right: convertInchesToTwip(config.margins.right),
+          bottom: convertInchesToTwip(config.margins.bottom),
+          left: convertInchesToTwip(config.margins.left),
+        },
+      },
+    };
+
+    // Build section object
+    const section: any = {
+      properties: sectionProperties,
+      children,
+    };
+
+    // Add page header if enabled (appears on pages 2+)
+    if (pageConfig.enable_page_header) {
+      section.headers = {
+        default: new Header({
+          children: [
+            new Paragraph({
+              alignment: AlignmentType.CENTER,
+              children: [
+                new TextRun({
+                  text: data.personalInfo.name,
+                  size: config.typography.sizes.small,
+                  color: config.colors.secondary,
+                  font: config.typography.fonts.primary,
+                }),
+              ],
+            }),
+          ],
+        }),
+      };
+    }
+
+    // Add page numbers if enabled
+    if (pageConfig.enable_page_numbers) {
+      section.footers = {
+        default: new Footer({
+          children: [
+            new Paragraph({
+              alignment: AlignmentType.CENTER,
+              children: [
+                new TextRun({
+                  children: [
+                    "Page ",
+                    PageNumber.CURRENT,
+                    " of ",
+                    PageNumber.TOTAL_PAGES,
+                  ],
+                  size: config.typography.sizes.small,
+                  color: config.colors.secondary,
+                  font: config.typography.fonts.primary,
+                }),
+              ],
+            }),
+          ],
+        }),
+      };
+    }
+
     return new Document({
       creator: data.personalInfo.name,
       title: `${data.personalInfo.name} - Resume`,
@@ -66,21 +149,9 @@ export class ModernTemplate implements Template {
         "cv",
         "curriculum vitae",
       ].join(", "),
-      sections: [
-        {
-          properties: {
-            page: {
-              margin: {
-                top: convertInchesToTwip(config.margins.top),
-                right: convertInchesToTwip(config.margins.right),
-                bottom: convertInchesToTwip(config.margins.bottom),
-                left: convertInchesToTwip(config.margins.left),
-              },
-            },
-          },
-          children,
-        },
-      ],
+      // Note: The docx library doesn't support setting document language directly
+      // The document_language config is available for future use if the library adds support
+      sections: [section],
     });
   }
 }

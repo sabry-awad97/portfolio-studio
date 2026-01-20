@@ -1,7 +1,15 @@
-import { Paragraph, TextRun } from "docx";
+import { Paragraph } from "docx";
 import type { Project } from "../types";
-import type { ResumeConfig } from "../configuration/config-types";
+import type { ExtendedResumeConfig } from "../configuration/extended-config-types";
+import {
+  DEFAULT_SECTION_TITLES,
+  DEFAULT_FORMATTING,
+} from "../configuration/extended-defaults";
 import { buildSectionHeader } from "./section-header-builder";
+import { createTextRun, createBulletText } from "../utilities/text-run-factory";
+import { createParagraphSpacing } from "../utilities/spacing-patterns";
+import { formatDate } from "../utilities/date-formatter";
+import { applyLineSpacing } from "../utilities/line-spacing";
 
 /**
  * Builds the projects section
@@ -11,38 +19,55 @@ import { buildSectionHeader } from "./section-header-builder";
  */
 export function buildProjects(
   projects: Project[],
-  config: ResumeConfig,
+  config: ExtendedResumeConfig,
 ): Paragraph[] {
   const paragraphs: Paragraph[] = [];
 
-  // Section header
-  paragraphs.push(buildSectionHeader("PROJECTS", config));
+  // Use configurable section title
+  const sectionTitle =
+    config.section_titles?.projects ?? DEFAULT_SECTION_TITLES.projects;
+  paragraphs.push(buildSectionHeader(sectionTitle, config));
+
+  // Get configured separators
+  const dateSeparator =
+    config.formatting?.date_separator ?? DEFAULT_FORMATTING.date_separator;
+  const tagSeparator =
+    config.formatting?.tag_separator ?? DEFAULT_FORMATTING.tag_separator;
 
   // Project entries
   for (const project of projects) {
+    // Format date if date formatting is configured
+    const formattedDate = config.date_format
+      ? formatDate(project.date, config.date_format)
+      : project.date;
+
     // Title and date
     paragraphs.push(
       new Paragraph({
         spacing: {
-          before: config.spacing.sm,
-          after: config.spacing.xs,
+          ...createParagraphSpacing("entryTitle", config),
+          ...applyLineSpacing("body", config),
         },
         keepNext: true, // Keep title with description
         children: [
-          new TextRun({
-            text: project.title,
-            bold: true,
-            size: config.typography.sizes.heading2,
-            color: config.colors.text,
-            font: config.typography.fonts.primary,
-          }),
-          new TextRun({
-            text: `  •  ${project.date}`,
-            size: config.typography.sizes.body,
-            color: config.colors.secondary,
-            italics: true,
-            font: config.typography.fonts.primary,
-          }),
+          createTextRun(
+            {
+              text: project.title,
+              bold: true,
+              size: config.typography.sizes.heading2,
+              color: config.colors.text,
+            },
+            config,
+          ),
+          createTextRun(
+            {
+              text: `${dateSeparator}${formattedDate}`,
+              size: config.typography.sizes.body,
+              color: config.colors.secondary,
+              italics: true,
+            },
+            config,
+          ),
         ],
       }),
     );
@@ -50,33 +75,43 @@ export function buildProjects(
     // Description
     paragraphs.push(
       new Paragraph({
-        spacing: { after: config.spacing.xs },
+        spacing: {
+          ...createParagraphSpacing("entryDescription", config),
+          ...applyLineSpacing("body", config),
+        },
         keepNext: project.tags && project.tags.length > 0, // Keep with technologies if present
         children: [
-          new TextRun({
-            text: project.description,
-            size: config.typography.sizes.body,
-            color: config.colors.text,
-            font: config.typography.fonts.primary,
-          }),
+          createTextRun(
+            {
+              text: project.description,
+              size: config.typography.sizes.body,
+              color: config.colors.text,
+            },
+            config,
+          ),
         ],
       }),
     );
 
     // Technologies (plain text separator for ATS compatibility)
     if (project.tags && project.tags.length > 0) {
-      const technologies = project.tags.join(" • ");
+      const technologies = createBulletText(project.tags, tagSeparator);
       paragraphs.push(
         new Paragraph({
-          spacing: { after: config.spacing.sm },
+          spacing: {
+            ...createParagraphSpacing("entryContent", config),
+            ...applyLineSpacing("body", config),
+          },
           children: [
-            new TextRun({
-              text: `Technologies: ${technologies}`,
-              size: config.typography.sizes.small,
-              color: config.colors.secondary,
-              italics: true,
-              font: config.typography.fonts.primary,
-            }),
+            createTextRun(
+              {
+                text: `Technologies: ${technologies}`,
+                size: config.typography.sizes.small,
+                color: config.colors.secondary,
+                italics: true,
+              },
+              config,
+            ),
           ],
         }),
       );

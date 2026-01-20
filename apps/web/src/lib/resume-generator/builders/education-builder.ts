@@ -1,7 +1,15 @@
-import { Paragraph, TextRun } from "docx";
+import { Paragraph } from "docx";
 import type { Education } from "../types";
-import type { ResumeConfig } from "../configuration/config-types";
+import type { ExtendedResumeConfig } from "../configuration/extended-config-types";
+import {
+  DEFAULT_SECTION_TITLES,
+  DEFAULT_FORMATTING,
+} from "../configuration/extended-defaults";
 import { buildSectionHeader } from "./section-header-builder";
+import { createTextRun } from "../utilities/text-run-factory";
+import { createParagraphSpacing } from "../utilities/spacing-patterns";
+import { formatDate } from "../utilities/date-formatter";
+import { applyLineSpacing } from "../utilities/line-spacing";
 
 /**
  * Builds the education section
@@ -11,38 +19,53 @@ import { buildSectionHeader } from "./section-header-builder";
  */
 export function buildEducation(
   education: Education[],
-  config: ResumeConfig,
+  config: ExtendedResumeConfig,
 ): Paragraph[] {
   const paragraphs: Paragraph[] = [];
 
-  // Section header
-  paragraphs.push(buildSectionHeader("EDUCATION", config));
+  // Use configurable section title
+  const sectionTitle =
+    config.section_titles?.education ?? DEFAULT_SECTION_TITLES.education;
+  paragraphs.push(buildSectionHeader(sectionTitle, config));
+
+  // Get configured date separator
+  const dateSeparator =
+    config.formatting?.date_separator ?? DEFAULT_FORMATTING.date_separator;
 
   // Education entries
   for (const edu of education) {
+    // Format date if date formatting is configured
+    const formattedDate = config.date_format
+      ? formatDate(edu.date, config.date_format)
+      : edu.date;
+
     // Title and date
     paragraphs.push(
       new Paragraph({
         spacing: {
-          before: config.spacing.sm,
-          after: config.spacing.xs,
+          ...createParagraphSpacing("entryTitle", config),
+          ...applyLineSpacing("body", config),
         },
         keepNext: true, // Keep title with description
         children: [
-          new TextRun({
-            text: edu.title,
-            bold: true,
-            size: config.typography.sizes.heading2,
-            color: config.colors.text,
-            font: config.typography.fonts.primary,
-          }),
-          new TextRun({
-            text: `  •  ${edu.date}`,
-            size: config.typography.sizes.body,
-            color: config.colors.secondary,
-            italics: true,
-            font: config.typography.fonts.primary,
-          }),
+          createTextRun(
+            {
+              text: edu.title,
+              bold: true,
+              size: config.typography.sizes.heading2,
+              color: config.colors.text,
+            },
+            config,
+          ),
+          createTextRun(
+            {
+              text: `${dateSeparator}${formattedDate}`,
+              size: config.typography.sizes.body,
+              color: config.colors.secondary,
+              italics: true,
+            },
+            config,
+          ),
         ],
       }),
     );
@@ -50,14 +73,19 @@ export function buildEducation(
     // Description
     paragraphs.push(
       new Paragraph({
-        spacing: { after: config.spacing.sm },
+        spacing: {
+          ...createParagraphSpacing("entryContent", config),
+          ...applyLineSpacing("body", config),
+        },
         children: [
-          new TextRun({
-            text: edu.description,
-            size: config.typography.sizes.body,
-            color: config.colors.text,
-            font: config.typography.fonts.primary,
-          }),
+          createTextRun(
+            {
+              text: edu.description,
+              size: config.typography.sizes.body,
+              color: config.colors.text,
+            },
+            config,
+          ),
         ],
       }),
     );

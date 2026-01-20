@@ -1,5 +1,9 @@
-import { Paragraph, TextRun, BorderStyle, HeadingLevel } from "docx";
+import { Paragraph, HeadingLevel } from "docx";
 import type { ResumeConfig } from "../configuration/config-types";
+import { createTextRun } from "../utilities/text-run-factory";
+import { createParagraphSpacing } from "../utilities/spacing-patterns";
+import { createSectionBorder } from "../utilities/border-factory";
+import { applyLineSpacing } from "../utilities/line-spacing";
 
 /**
  * Builds a styled section header for resume sections
@@ -14,27 +18,24 @@ export function buildSectionHeader(
   return new Paragraph({
     heading: HeadingLevel.HEADING_1, // Proper heading level for document outline
     spacing: {
-      before: config.spacing.md,
-      after: config.spacing.sm,
+      ...createParagraphSpacing("sectionHeader", config),
+      ...applyLineSpacing("heading", config),
     },
     border: {
-      bottom: {
-        color: config.colors.primary,
-        space: 1,
-        style: BorderStyle.SINGLE,
-        size: 20,
-      },
+      bottom: createSectionBorder("bottom", {}, config),
     },
     keepNext: true, // Keep section header with next paragraph
     keepLines: true, // Prevent section header from splitting across pages
     children: [
-      new TextRun({
-        text: title,
-        bold: true,
-        size: config.typography.sizes.heading1,
-        color: config.colors.primary,
-        font: config.typography.fonts.primary,
-      }),
+      createTextRun(
+        {
+          text: title,
+          bold: true,
+          size: config.typography.sizes.heading1,
+          color: config.colors.primary,
+        },
+        config,
+      ),
     ],
   });
 }

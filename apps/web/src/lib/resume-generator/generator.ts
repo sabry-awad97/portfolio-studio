@@ -2,12 +2,13 @@ import { Packer } from "docx";
 import { saveAs } from "file-saver";
 import { validateResumeData, sanitizeResumeData } from "./validation/validator";
 import { ResumeGenerationError, TemplateError } from "./validation/errors";
-import { loadConfiguration } from "./configuration/config-loader";
+import { loadExtendedConfiguration } from "./configuration/extended-config-loader";
 import { ProfessionalTemplate } from "./templates/professional-template";
 import { ModernTemplate } from "./templates/modern-template";
 import type { Template } from "./templates/template-interface";
 import type { ResumeData } from "./types";
-import type { ResumeConfig, TemplateType } from "./configuration/config-types";
+import type { ExtendedResumeConfig } from "./configuration/extended-config-types";
+import type { TemplateType } from "./configuration/config-types";
 
 /**
  * Gets the appropriate template instance based on template type
@@ -29,14 +30,14 @@ export function getTemplate(templateType: TemplateType): Template {
 /**
  * Generates a resume document from data
  * @param data - Resume data
- * @param customConfig - Optional custom configuration
+ * @param customConfig - Optional custom configuration (supports both old and new format)
  * @throws ResumeGenerationError if validation fails
  * @throws ConfigurationError if configuration is invalid
  * @throws TemplateError if template is not found
  */
 export async function generateResume(
   data: ResumeData,
-  customConfig?: Partial<ResumeConfig>,
+  customConfig?: Partial<ExtendedResumeConfig>,
 ): Promise<void> {
   try {
     // Step 1: Validate data
@@ -51,8 +52,8 @@ export async function generateResume(
     // Step 2: Sanitize data to remove unsafe characters
     const sanitizedData = sanitizeResumeData(data);
 
-    // Step 3: Load and merge configuration
-    const config = loadConfiguration(customConfig);
+    // Step 3: Load and merge configuration (supports extended config)
+    const config = loadExtendedConfiguration(customConfig);
 
     // Step 4: Select template
     const template = getTemplate(config.template);

@@ -45,6 +45,7 @@ describe("Section Header Builder", () => {
             primary: "Arial",
             secondary: "Calibri",
           },
+          lineSpacing: DEFAULT_CONFIG.typography.lineSpacing,
         },
       };
 
@@ -155,6 +156,11 @@ describe("Section Header Builder", () => {
                   "Arial",
                   "Times New Roman",
                 ),
+              }),
+              lineSpacing: fc.record({
+                title: fc.float({ min: 1.0, max: 2.0, noNaN: true }),
+                heading: fc.float({ min: 1.0, max: 2.0, noNaN: true }),
+                body: fc.float({ min: 1.0, max: 2.0, noNaN: true }),
               }),
             }),
             spacing: fc.record({

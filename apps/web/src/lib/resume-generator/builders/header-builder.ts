@@ -1,6 +1,9 @@
-import { Paragraph, TextRun, AlignmentType, ExternalHyperlink } from "docx";
+import { Paragraph, AlignmentType, TextRun, ExternalHyperlink } from "docx";
 import type { PersonalInfo } from "../types";
-import type { ResumeConfig } from "../configuration/config-types";
+import type { ExtendedResumeConfig } from "../configuration/extended-config-types";
+import { createTextRun, createHyperlink } from "../utilities/text-run-factory";
+import { createParagraphSpacing } from "../utilities/spacing-patterns";
+import { applyLineSpacing } from "../utilities/line-spacing";
 
 /**
  * Builds the resume header with personal information
@@ -10,7 +13,7 @@ import type { ResumeConfig } from "../configuration/config-types";
  */
 export function buildHeader(
   personalInfo: PersonalInfo,
-  config: ResumeConfig,
+  config: ExtendedResumeConfig,
 ): Paragraph[] {
   const paragraphs: Paragraph[] = [];
 
@@ -18,15 +21,20 @@ export function buildHeader(
   paragraphs.push(
     new Paragraph({
       alignment: AlignmentType.CENTER,
-      spacing: { after: config.spacing.xs },
+      spacing: {
+        ...createParagraphSpacing("entryDescription", config),
+        ...applyLineSpacing("title", config),
+      },
       children: [
-        new TextRun({
-          text: personalInfo.name,
-          bold: true,
-          size: config.typography.sizes.title,
-          color: config.colors.primary,
-          font: config.typography.fonts.primary,
-        }),
+        createTextRun(
+          {
+            text: personalInfo.name,
+            bold: true,
+            size: config.typography.sizes.title,
+            color: config.colors.primary,
+          },
+          config,
+        ),
       ],
     }),
   );
@@ -35,14 +43,19 @@ export function buildHeader(
   paragraphs.push(
     new Paragraph({
       alignment: AlignmentType.CENTER,
-      spacing: { after: config.spacing.sm },
+      spacing: {
+        ...createParagraphSpacing("entryContent", config),
+        ...applyLineSpacing("body", config),
+      },
       children: [
-        new TextRun({
-          text: `${personalInfo.title} | ${personalInfo.subtitle}`,
-          size: config.typography.sizes.heading2,
-          color: config.colors.secondary,
-          font: config.typography.fonts.primary,
-        }),
+        createTextRun(
+          {
+            text: `${personalInfo.title} | ${personalInfo.subtitle}`,
+            size: config.typography.sizes.heading2,
+            color: config.colors.secondary,
+          },
+          config,
+        ),
       ],
     }),
   );
@@ -85,23 +98,17 @@ export function buildHeader(
       }),
     );
 
-    // Add https:// if not present
-    const linkedinUrl = personalInfo.contact.linkedin.startsWith("http")
-      ? personalInfo.contact.linkedin
-      : `https://${personalInfo.contact.linkedin}`;
-
     contactChildren.push(
-      new ExternalHyperlink({
-        link: linkedinUrl,
-        children: [
-          new TextRun({
-            text: personalInfo.contact.linkedin,
-            size: config.typography.sizes.small,
-            color: config.colors.primary,
-            style: "Hyperlink",
-          }),
-        ],
-      }),
+      createHyperlink(
+        {
+          text: personalInfo.contact.linkedin,
+          url: personalInfo.contact.linkedin,
+          size: config.typography.sizes.small,
+          color: config.colors.primary,
+          style: "Hyperlink",
+        },
+        config,
+      ),
     );
   }
 
@@ -114,30 +121,27 @@ export function buildHeader(
       }),
     );
 
-    // Add https:// if not present
-    const githubUrl = personalInfo.contact.github.startsWith("http")
-      ? personalInfo.contact.github
-      : `https://${personalInfo.contact.github}`;
-
     contactChildren.push(
-      new ExternalHyperlink({
-        link: githubUrl,
-        children: [
-          new TextRun({
-            text: personalInfo.contact.github,
-            size: config.typography.sizes.small,
-            color: config.colors.primary,
-            style: "Hyperlink",
-          }),
-        ],
-      }),
+      createHyperlink(
+        {
+          text: personalInfo.contact.github,
+          url: personalInfo.contact.github,
+          size: config.typography.sizes.small,
+          color: config.colors.primary,
+          style: "Hyperlink",
+        },
+        config,
+      ),
     );
   }
 
   paragraphs.push(
     new Paragraph({
       alignment: AlignmentType.CENTER,
-      spacing: { after: config.spacing.md },
+      spacing: {
+        after: config.spacing.md,
+        ...applyLineSpacing("body", config),
+      },
       children: contactChildren,
     }),
   );

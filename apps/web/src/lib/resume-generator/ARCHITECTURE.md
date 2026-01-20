@@ -134,7 +134,55 @@ export function buildSection(
 }
 ```
 
-### 6. Templates
+### 6. Utilities
+
+Reusable utility functions for common document generation tasks:
+
+#### `utilities/text-run-factory.ts`
+
+- `createTextRun()` - Creates TextRun with config-based styling
+- `createHyperlink()` - Creates hyperlinks with automatic URL prefixing
+- `createBulletText()` - Joins items with configurable separators
+- `createTitleDateText()` - Formats title-date combinations
+
+#### `utilities/border-factory.ts`
+
+- `createTableBorders()` - Creates table borders with config options
+- `createSectionBorder()` - Creates section borders for visual separation
+- `createCellMargins()` - Applies standard cell padding
+
+#### `utilities/spacing-patterns.ts`
+
+- `SPACING_PATTERNS` - Standard spacing patterns for consistency
+- `resolveSpacing()` - Converts pattern keys to config values
+- `createParagraphSpacing()` - Applies spacing patterns to paragraphs
+
+#### `utilities/table-factory.ts`
+
+- `createTableCell()` - Creates table cells with options
+- `createTableRow()` - Creates table rows from cell options
+- `createTable()` - Creates complete tables with borders
+
+#### `utilities/date-formatter.ts`
+
+- `parseDate()` - Parses common date formats
+- `formatDate()` - Formats dates with locale and pattern support
+- `formatDateObject()` - Uses Intl.DateTimeFormat for localization
+
+#### `utilities/validation-helpers.ts`
+
+- `validateColor()` - Validates hex color format
+- `validateSpacing()` - Validates positive spacing values
+- `validateColumnWidths()` - Validates column widths sum to 100
+- `validateContrast()` - Calculates WCAG contrast ratios
+- `validateConfig()` - Validates complete configuration
+
+#### `utilities/line-spacing.ts`
+
+- `applyLineSpacing()` - Converts line spacing ratios to docx format
+- Supports body, heading, and title line spacing types
+
+### 7. Templates
 
 #### `template-interface.ts`
 
@@ -298,49 +346,37 @@ interface FormattingRules {
 }
 ```
 
-#### 3. Hardcoded Section Titles
+#### 3. ~~Hardcoded Section Titles~~ ✅ RESOLVED
 
-**Limitation**: Section titles like "EDUCATION", "PROJECTS" are hardcoded in English.
+**Previous Limitation**: Section titles like "EDUCATION", "PROJECTS" were hardcoded in English.
 
-**Current State**:
-
-```typescript
-paragraphs.push(buildSectionHeader("EDUCATION", config));
-```
-
-**Recommended Solution**: Add i18n support
+**Solution Implemented**: Added i18n support through `section_titles` configuration.
 
 ```typescript
-// config-types.ts
-interface SectionTitles {
-  education: string;
-  experience: string;
-  projects: string;
-  skills: string;
-  certifications: string;
-  summary: string;
+// Extended configuration now supports custom section titles
+interface ExtendedResumeConfig extends ResumeConfig {
+  section_titles?: {
+    education: string;
+    experience: string;
+    projects: string;
+    skills: string;
+    certifications: string;
+    summary: string;
+  };
 }
-
-interface ResumeConfig {
-  // ... existing fields
-  sectionTitles?: SectionTitles;
-}
-
-// default-config.ts
-const DEFAULT_SECTION_TITLES: SectionTitles = {
-  education: "EDUCATION",
-  experience: "WORK EXPERIENCE",
-  projects: "PROJECTS",
-  skills: "TECHNICAL SKILLS",
-  certifications: "CERTIFICATIONS",
-  summary: "PROFESSIONAL SUMMARY",
-};
 
 // Usage in builders
-paragraphs.push(
-  buildSectionHeader(config.sectionTitles?.education || "EDUCATION", config),
-);
+paragraphs.push(buildSectionHeader(config.section_titles.education, config));
 ```
+
+**Benefits**:
+
+- Full internationalization support
+- Customizable section names
+- Backward compatible (defaults to English)
+- Type-safe with TypeScript
+
+See [README.md](./README.md) for configuration examples.
 
 #### 4. No Icon/Image Support
 
@@ -444,28 +480,67 @@ interface ResumeConfig {
 - Test both templates
 - Test error scenarios
 
+## Recent Enhancements (Completed)
+
+### Configuration System Improvements
+
+1. ✅ **Section Title Configuration (i18n Support)**
+   - Customizable section headers for any language
+   - Default English titles with easy override
+   - Type-safe configuration
+
+2. ✅ **Extended Formatting Options**
+   - Custom bullet characters
+   - Configurable date separators
+   - Custom tag separators for technology lists
+
+3. ✅ **Table Configuration**
+   - Adjustable column widths for skills table
+   - Validation ensures widths sum to 100%
+
+4. ✅ **Page Controls**
+   - Optional page numbers with custom format
+   - Optional page headers on subsequent pages
+   - Configurable header text with variable substitution
+
+5. ✅ **Date Formatting**
+   - Locale-aware date formatting
+   - Custom format patterns
+   - Graceful handling of special cases (Present, Current, Now)
+
+6. ✅ **Accessibility Features**
+   - WCAG AA contrast validation
+   - Automatic warnings for low-contrast color combinations
+   - Includes contrast ratios in warning messages
+
+7. ✅ **Line Spacing Control**
+   - Separate line spacing for body, headings, and titles
+   - Configurable ratios for optimal readability
+
+8. ✅ **Document Language Attribute**
+   - Configurable document language (prepared for future docx support)
+
 ## Future Enhancements
 
 ### High Priority
 
-1. ✅ Add section title configuration (i18n support)
-2. Add multi-column layout support
-3. Add conditional formatting rules
-4. Add more template options
+1. Add multi-column layout support
+2. Add conditional formatting rules
+3. Add more template options
+4. PDF export option
 
 ### Medium Priority
 
-1. PDF export option
-2. Custom section ordering
-3. Dynamic section visibility
-4. Profile photo support (optional)
+1. Custom section ordering
+2. Dynamic section visibility
+3. Profile photo support (optional)
+4. Custom fonts support
 
 ### Low Priority
 
 1. Icon support (non-ATS mode)
-2. Custom fonts
-3. Watermarks
-4. Headers/footers
+2. Watermarks
+3. Advanced headers/footers with multiple variables
 
 ## Migration Guide
 

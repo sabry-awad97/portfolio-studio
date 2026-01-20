@@ -26,6 +26,16 @@ export type {
   TemplateType,
 } from "./configuration/config-types";
 
+// Extended configuration types
+export type {
+  ExtendedResumeConfig,
+  SectionTitles,
+  FormattingOptions,
+  TableConfig,
+  PageConfig,
+  DateFormatConfig,
+} from "./configuration/extended-config-types";
+
 // Configuration
 export {
   DEFAULT_CONFIG,
@@ -35,6 +45,13 @@ export {
   THEME_PRESETS,
   loadConfiguration,
   validateConfiguration,
+  loadExtendedConfiguration,
+  DEFAULT_SECTION_TITLES,
+  DEFAULT_FORMATTING,
+  DEFAULT_TABLE_CONFIG,
+  DEFAULT_PAGE_CONFIG,
+  DEFAULT_DATE_FORMAT,
+  DEFAULT_DOCUMENT_LANGUAGE,
 } from "./configuration";
 
 // Error classes
@@ -59,3 +76,21 @@ export {
   buildCertifications,
   buildSectionHeader,
 } from "./builders";
+
+// Utilities (for advanced usage)
+export {
+  createTextRun,
+  createHyperlink,
+  createBulletText,
+  createTitleDateText,
+  createTableBorders,
+  createSectionBorder,
+  createCellMargins,
+  createParagraphSpacing,
+  formatDate,
+  validateConfig,
+  validateColor,
+  validateSpacing,
+  validateColumnWidths,
+  validateContrast,
+} from "./utilities";
