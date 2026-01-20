@@ -7,6 +7,7 @@ import {
   paddingVariants,
 } from "@/lib/responsive-classes";
 import { DownloadResumeButton } from "@/components/download-resume-button";
+import { personalInfo } from "@/lib/data";
 
 export function CTASection() {
   return (
@@ -47,7 +48,7 @@ export function CTASection() {
                 asChild
               >
                 <a
-                  href="mailto:iprincepatel22@gmail.com"
+                  href={`mailto:${personalInfo.contact.email}`}
                   aria-label="Send email to discuss freelance work"
                 >
                   Send an Email
