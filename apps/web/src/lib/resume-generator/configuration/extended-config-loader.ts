@@ -129,29 +129,29 @@ function validateMergedConfig(config: ExtendedResumeConfig): void {
   // Validate color contrast ratios (warning only, not error)
   const contrastChecks = [
     {
-      fg: config.colors.text,
-      bg: config.colors.background,
+      foreground: config.colors.text,
+      background: config.colors.background,
       name: "text on background",
     },
     {
-      fg: config.colors.primary,
-      bg: config.colors.background,
+      foreground: config.colors.primary,
+      background: config.colors.background,
       name: "primary on background",
     },
     {
-      fg: config.colors.secondary,
-      bg: config.colors.background,
+      foreground: config.colors.secondary,
+      background: config.colors.background,
       name: "secondary on background",
     },
     {
-      fg: config.colors.accent,
-      bg: config.colors.background,
+      foreground: config.colors.accent,
+      background: config.colors.background,
       name: "accent on background",
     },
   ];
 
   for (const check of contrastChecks) {
-    const result = validateContrast(check.fg, check.bg);
+    const result = validateContrast(check.foreground, check.background);
     if (!result.passes) {
       console.warn(
         `Warning: Low contrast ratio (${result.ratio}:1) for ${check.name}. ` +

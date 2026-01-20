@@ -29,19 +29,19 @@ export function getTemplate(templateType: TemplateType): Template {
 
 /**
  * Generates a resume document from data
- * @param data - Resume data
- * @param customConfig - Optional custom configuration (supports both old and new format)
+ * @param resumeData - Resume data to generate document from
+ * @param customConfiguration - Optional custom configuration (supports both old and new format)
  * @throws ResumeGenerationError if validation fails
  * @throws ConfigurationError if configuration is invalid
  * @throws TemplateError if template is not found
  */
 export async function generateResume(
-  data: ResumeData,
-  customConfig?: Partial<ExtendedResumeConfig>,
+  resumeData: ResumeData,
+  customConfiguration?: Partial<ExtendedResumeConfig>,
 ): Promise<void> {
   try {
     // Step 1: Validate data
-    const validationResult = validateResumeData(data);
+    const validationResult = validateResumeData(resumeData);
     if (!validationResult.isValid) {
       throw new ResumeGenerationError(
         "Resume data validation failed",
@@ -50,23 +50,23 @@ export async function generateResume(
     }
 
     // Step 2: Sanitize data to remove unsafe characters
-    const sanitizedData = sanitizeResumeData(data);
+    const sanitizedData = sanitizeResumeData(resumeData);
 
     // Step 3: Load and merge configuration (supports extended config)
-    const config = loadExtendedConfiguration(customConfig);
+    const configuration = loadExtendedConfiguration(customConfiguration);
 
     // Step 4: Select template
-    const template = getTemplate(config.template);
+    const template = getTemplate(configuration.template);
 
     // Step 5: Build document with sanitized data
-    const doc = template.buildDocument(sanitizedData, config);
+    const document = template.buildDocument(sanitizedData, configuration);
 
     // Step 6: Generate blob
-    const blob = await Packer.toBlob(doc);
+    const documentBlob = await Packer.toBlob(document);
 
     // Step 7: Save file with sanitized filename
-    const filename = sanitizeFilename(data.personalInfo.name);
-    saveAs(blob, filename);
+    const filename = sanitizeFilename(resumeData.personalInfo.name);
+    saveAs(documentBlob, filename);
   } catch (error) {
     if (
       error instanceof ResumeGenerationError ||
