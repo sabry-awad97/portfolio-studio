@@ -17,12 +17,13 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
   head: () => ({
     meta: [
       {
-        title: "Prince Patel - Full Stack Developer Portfolio",
+        title:
+          "Sabry Awad - Full-Stack Web & AI Developer | Rust | Go | TypeScript",
       },
       {
         name: "description",
         content:
-          "Portfolio of Prince Patel - Full Stack Developer & App Developer. Showcasing projects, skills, and experience in web and mobile development.",
+          "Portfolio of Sabry Awad - Full-Stack Web & AI Developer specializing in Rust, Go, TypeScript, and Tauri. Building scalable, AI-powered, and cross-platform applications.",
       },
     ],
     links: [
