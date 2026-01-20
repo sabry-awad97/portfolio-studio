@@ -26,9 +26,11 @@ export function DownloadResumeButton({
     try {
       setIsGenerating(true);
 
-      // Show loading toast
+      // Show loading toast with detailed hint
       const loadingToast = toast.loading("Generating your resume...", {
-        description: "Creating a beautiful Word document",
+        description:
+          "Dynamically creating a professional Word document (DOCX) with your latest information",
+        duration: Infinity,
       });
 
       // Generate the resume
@@ -45,8 +47,9 @@ export function DownloadResumeButton({
       // Show success state
       setIsSuccess(true);
       toast.success("Resume downloaded successfully!", {
-        description: "Check your downloads folder",
-        duration: 3000,
+        description:
+          "Your professionally formatted DOCX resume is ready in your downloads folder",
+        duration: 4000,
       });
 
       // Reset success state after animation

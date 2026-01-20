@@ -102,7 +102,7 @@ export function buildHeader(
       createHyperlink(
         {
           text: personalInfo.contact.linkedin,
-          url: personalInfo.contact.linkedin,
+          url: `https://linkedin.com/in/${personalInfo.contact.linkedin}`,
           size: config.typography.sizes.small,
           color: config.colors.primary,
           style: "Hyperlink",
@@ -125,7 +125,7 @@ export function buildHeader(
       createHyperlink(
         {
           text: personalInfo.contact.github,
-          url: personalInfo.contact.github,
+          url: `https://github.com/${personalInfo.contact.github}`,
           size: config.typography.sizes.small,
           color: config.colors.primary,
           style: "Hyperlink",
